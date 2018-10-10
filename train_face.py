@@ -18,8 +18,8 @@ for (root,dirs,files) in os.walk(image_dir):
             person_face_encoding = face_recognition.face_encodings(person_image)[0]
             known_face_encodings.append(person_face_encoding)
             known_face_names.append(label)
+print(known_face_names)
 with open('./train_data/know_face.pickle','wb') as f:
     pickle.dump(known_face_names,f)
-
 with open("./train_data/know_face_encode.pickle",'wb') as f:
     pickle.dump(known_face_encodings,f)

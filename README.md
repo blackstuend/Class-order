@@ -16,7 +16,7 @@ Enter your name:vinecnt  //wait to capture your face
 $python .\train_face.py
 ```
 
-#Third Enjoy your app
+# Third Enjoy your app
 
 ```
 python .\face_recognition_use.py
