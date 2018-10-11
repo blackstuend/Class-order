@@ -22,15 +22,15 @@ video_capture = cv2.VideoCapture(0)
 
 while True:
     ret, frame = video_capture.read()
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces=face_cascade.detectMultiScale(gray,scaleFactor=1.5, minNeighbors=5)
+    rgb_frame = frame[:, :, ::-1]
+    faces=face_cascade.detectMultiScale(frame,scaleFactor=1.5, minNeighbors=5)
     for (x, y, w, h) in faces:
-        roi_frame = frame[y+20:y+h+20, x+20:x+w+20]
+        roi_frame = frame[y-20:y+h+20, x-20:x+w+20]
         str_photo_id=str(photo_id) 
         photo_name=str_photo_id+'.jpg'
         phote_dir=os.path.join(dir_name,photo_name)
         photo_id+=1
-        cv2.imwrite(phote_dir,frame)
+        cv2.imwrite(phote_dir,roi_frame)
         color=(255,0,0)
         stroke=2
         cv2.rectangle(frame,(x,y),(x+w,y+h),color,stroke)
@@ -39,4 +39,5 @@ while True:
         break
 video_capture.release()
 cv2.destroyAllWindows()
+
 
