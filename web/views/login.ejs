@@ -67,7 +67,7 @@
 
 <body id="LoginForm">
     <div class="container">
-        <h1 class="form-heading"><%= user_option %>'s Login Form</h1>
+        <h1 class="form-heading"><%= user_option %>'s Login</h1>
         <div class="login-form">
             <div class="main-div">
                 <div class="panel" id='panel'>
@@ -75,12 +75,12 @@
                     <p>Please enter your email and password</p>
                     <div class="alert alert-danger" id="danger" role="alert"></div>
                 </div>
-                <form id="login" action='/login_post' method='post' >
+                <form id="login" action='/<%= user_option %>_login' method='post' >
                     <div class="form-group">
-                        <input  type="tel" class="form-control" id="inputId" placeholder="Student ID" required autofocus>
+                        <input  type="tel" class="form-control" name='ID' id="ID" placeholder="Student ID" required autofocus>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" required autofocus>
+                        <input type="password" class="form-control" name='password' id="password" placeholder="Password" required autofocus>
                     </div>
                     <div class="forgot">
                         <a href="reset.html">Forgot password?</a>
@@ -97,22 +97,5 @@
 
 
 </body>
-<script>
-    // var form_input = document.querySelectorAll('form input')
-    // var login=document.querySelector('#login')
-    // var panel =document.querySelector('#panel')
-    // var danger =document.querySelector("#danger")
-    // window.onload = function () {
-    //     login.onsubmit=function(){
-    //         for(element of form_input){
-    //             if(element.value == ''){
-    //                 danger.innerText = 'Pleace input your account'
-    //                 danger.style.display='block'
-    //                 return false
-    //             }
-    //         }
-    //     }
-    // }
-</script>
 
 </html>
