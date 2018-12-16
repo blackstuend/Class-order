@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>tracking.js - face with camera</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <script src="./build/tracking-min.js"></script>
+    <script src="./build/data/face-min.js"></script>
+
+    <style>
+        .video,#canvas {
+             position: absolute; 
+        } 
+        .container-fluid{
+             padding-left:10px;
+        }
+        .take-btn{
+            margin-top:400px;
+        }
+         .show-picture{
+             margin-left: 30px;
+             padding: 0;
+        } 
+        .show_canvas{
+            border:1px solid black;
+            padding-left: 30px;
+            padding-top: 5px;
+            margin-left: 10px;
+            height:120px;
+        }
+        .click_show_canvas{
+            border:2px solid #ad0c0c;
+            background-color: #ffffff; opacity:0.6; filter:alpha(opacity=50); 
+        }
+        #a
+        {
+            margin-top: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+
+
+    </script>
+
+</head>
+
+<body>
+    <div class="row" style="margin-left:5px;margin-top:20px;">
+        <div class='show-picture col-md-5 img-thumbnail pic' alt="Cinque Terre">
+            <div class="card-header" id="sel">
+                <h5>Select Picture</h5>
+            </div>
+            <div class="card-header" id="num">
+                <h5><span id='number'>0</span>/5</h5>
+            </div>
+        </div>
+
+        <div class="col-md-6  container-fluid">
+
+            <video class="img-thumbnail" alt="Cinque Terre" id="video" width="600" height="480" preload autoplay loop
+                muted></video>
+            <canvas id="canvas" width="600" height="480"></canvas>
+            <div class="row" id="a"></div>
+
+
+            <div class='offset-md-6'>
+                <!-- <button class='btn btn-primary take-btn'>拍照</button>   -->
+                <a class="take-btn"><img src="./images/button.png" width="50px" height="50px"></a>
+            </div>
+        </div>
+
+    </div>
+    <div class='col-md-5 ' style="margin-left:20px;  ">
+        <a class='btn btn-primary ui green button fluid ' style="width:535px;">傳送</a>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var index = 0;
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var tracker = new tracking.ObjectTracker('face');
+        var take_picture = document.querySelector(".take-btn")
+        var show_picutre = document.querySelector(".show-picture")
+        var picture_array = [];
+        var number = document.querySelector('#number')
+        var x = document.getElementById("sel");
+        var y = document.getElementById("num");
+        y.style.display = "none"
+        var t1 = 0;
+
+        take_picture.addEventListener('click', function () {
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            canvas.setAttribute("value", index)
+            canvas.classList.add('col-md-5')
+            canvas.classList.add('show_canvas')
+            context.drawImage(video, 0, 0, 290, 145);
+            picture_array.push({ img: canvas, option: false });
+            show_picutre.appendChild(canvas);
+            var time = 0;
+
+            canvas.addEventListener('click', function () {
+                time = 0;
+                if (t1 < 5) {
+                    if (picture_array[canvas.getAttribute("value")].option == false) {
+                        this.classList.toggle('click_show_canvas')
+                        picture_array[canvas.getAttribute("value")].option = true
+                        t1++;
+                    }
+                }
+                else
+                    alert('數量已滿五張，如要新增請把舊的刪除')
+                if (picture_array[canvas.getAttribute("value")].option == true) {
+                    this.classList.toggle('click_show_canvas')
+                    picture_array[canvas.getAttribute("value")].option = false
+                    t1--;
+                }
+                for (var content of picture_array) {
+                    if (content.option)
+                        time++;
+                }
+
+                if (time == 0) {
+                    y.style.display = "none"
+                    x.style.display = "block"
+                } else {
+                    x.style.display = "none"
+                    y.style.display = "block"
+                }
+                number.innerText = time.toString()
+            })
+            index++;
+        })
+        tracker.setInitialScale(3);
+        tracker.setStepSize(4);
+        tracker.setEdgesDensity(0.1);
+        tracking.track('#video', tracker, { camera: true });
+        tracker.on('track', function (event) {
+            event.data.forEach(function (rect) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.strokeStyle = '#a64ceb';
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+            });
+        });
+    };
+</script>
+
+</html>
