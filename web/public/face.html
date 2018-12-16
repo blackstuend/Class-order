@@ -67,7 +67,7 @@
 
             <div class='offset-md-6'>
                 <!-- <button class='btn btn-primary take-btn'>拍照</button>   -->
-                <a class="take-btn"><img src="./images/button.png" width="50px" height="50px"></a>
+                <a class="take-btn"><img src="./imgages/button.png" width="50px" height="50px"></a>
             </div>
         </div>
 
@@ -105,20 +105,29 @@
 
             canvas.addEventListener('click', function () {
                 time = 0;
+                console.log(t1)
                 if (t1 < 5) {
                     if (picture_array[canvas.getAttribute("value")].option == false) {
                         this.classList.toggle('click_show_canvas')
                         picture_array[canvas.getAttribute("value")].option = true
                         t1++;
                     }
+                    else {
+                        this.classList.toggle('click_show_canvas')
+                        picture_array[canvas.getAttribute("value")].option = false
+                        t1--;
+                    }
                 }
-                else
-                    alert('數量已滿五張，如要新增請把舊的刪除')
-                if (picture_array[canvas.getAttribute("value")].option == true) {
-                    this.classList.toggle('click_show_canvas')
-                    picture_array[canvas.getAttribute("value")].option = false
-                    t1--;
+                else {
+                    if (picture_array[canvas.getAttribute("value")].option == true) {
+                        this.classList.toggle('click_show_canvas')
+                        picture_array[canvas.getAttribute("value")].option = false
+                        t1--;
+                    }
                 }
+
+                console.log(picture_array)
+
                 for (var content of picture_array) {
                     if (content.option)
                         time++;
@@ -131,6 +140,9 @@
                     x.style.display = "none"
                     y.style.display = "block"
                 }
+
+
+                console.log(time)
                 number.innerText = time.toString()
             })
             index++;
