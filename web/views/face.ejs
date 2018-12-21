@@ -10,49 +10,51 @@
     <script src="./build/data/face-min.js"></script>
 
     <style>
-        .video,
-        canvas {
-            position: absolute;
+        .video,#canvas {
+             position: absolute; 
+        } 
+        .container-fluid{
+             padding-left:10px;
         }
-
-        .container-fluid {
-            padding-left: 10px;
+        .take-btn{
+            margin-top:400px;
         }
-
-        .take-btn {
-            margin-top: 400px;
-        }
-
-        .show-picture {
-            margin-left: 30px;
-        }
-
-        .show_canvas {
-            border: 1px solid black;
+         .show-picture{
+             margin-left: 30px;
+             padding: 0;
+        } 
+        .show_canvas{
+            border:1px solid black;
             padding-left: 30px;
             padding-top: 5px;
             margin-left: 10px;
-            height: 120px;
+            height:120px;
         }
-
-        .click_show_canvas {
-            border: 2px solid #00008b;
-            background-color: #ffffff;
-            opacity: 0.6;
-            filter: alpha(opacity=50);
+        .click_show_canvas{
+            border:2px solid #ad0c0c;
+            background-color: #ffffff; opacity:0.6; filter:alpha(opacity=50); 
         }
-
-        #a {
+        #a
+        {
             margin-top: 5px;
         }
     </style>
+    <script type="text/javascript">
+
+
+    </script>
+
 </head>
 
 <body>
     <div class="row" style="margin-left:5px;margin-top:20px;">
-        <div class='show-picture col-md-5 img-thumbnail' alt="Cinque Terre">
-            <div >請選擇五張相片來傳送</div>
-            <div class='float-right'>0/5</div>
+        <div class='show-picture col-md-5 img-thumbnail pic' alt="Cinque Terre">
+            <div class="card-header" id="sel">
+                <h5>Select Picture</h5>
+            </div>
+            <div class="card-header" id="num">
+                <h5><span id='number'>0</span>/5</h5>
+            </div>
         </div>
 
         <div class="col-md-6  container-fluid">
@@ -65,17 +67,58 @@
 
             <div class='offset-md-6'>
                 <!-- <button class='btn btn-primary take-btn'>拍照</button>   -->
-                <a class="take-btn"><img src="/images/button.png" width="50px" height="50px"></a>
+                <a class="take-btn"><img src="./images/button.png" width="50px" height="50px"></a>
             </div>
         </div>
 
     </div>
     <div class='col-md-5 ' style="margin-left:20px;  ">
-        <a class='btn btn-primary ui green button fluid ' style="width:535px;">傳送</a>
+        <button class='btn btn-primary ui green button fluid ' id='send_button' style="width:535px;">傳送</bttton>
     </div>
 </body>
 <script>
+    var count=0;
+
+
+    function send(canvas) {
+        const dataURL = canvas.toDataURL('image/png')
+        const blobBin = atob(dataURL.split(',')[1])
+        const array = []
+        for (let i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i))
+        }
+        const file = new Blob([new Uint8Array(array)], { type: 'image/png' })
+
+        // 將file 加至 formData
+        const formData = new FormData()
+        formData.append('file', file, `${count}.png`)
+        // send ajax request 
+        fetch('/face_save', {
+            method: 'POST',
+            body: formData
+        }).then(res => res.text())
+            .then(resText => console.log(resText))
+        count++;
+    }
+
+
+
+
+
+
+
     window.onload = function () {
+        var send_button = document.querySelector("#send_button")
+        send_button.onclick = function () {
+            for ( content of picture_array){
+                if(content.option)
+                send(content.img);
+            }
+            if(count == 5)
+            location.href='/'
+        }
+
+        //
         var index = 0;
         var video = document.getElementById('video');
         var canvas = document.getElementById('canvas');
@@ -84,6 +127,12 @@
         var take_picture = document.querySelector(".take-btn")
         var show_picutre = document.querySelector(".show-picture")
         var picture_array = [];
+        var number = document.querySelector('#number')
+        var x = document.getElementById("sel");
+        var y = document.getElementById("num");
+        y.style.display = "none"
+        var t1 = 0;
+
         take_picture.addEventListener('click', function () {
             var canvas = document.createElement('canvas');
             var context = canvas.getContext('2d');
@@ -93,17 +142,49 @@
             context.drawImage(video, 0, 0, 290, 145);
             picture_array.push({ img: canvas, option: false });
             show_picutre.appendChild(canvas);
+            var time = 0;
+
             canvas.addEventListener('click', function () {
-                console.log(canvas.getAttribute("value"));
-                if (picture_array[canvas.getAttribute("value")].option == false) {
-                    this.classList.toggle('click_show_canvas')
-                    picture_array[canvas.getAttribute("value")].option = true
+                time = 0;
+                console.log(t1)
+                if (t1 < 5) {
+                    if (picture_array[canvas.getAttribute("value")].option == false) {
+                        this.classList.toggle('click_show_canvas')
+                        picture_array[canvas.getAttribute("value")].option = true
+                        t1++;
+                    }
+                    else {
+                        this.classList.toggle('click_show_canvas')
+                        picture_array[canvas.getAttribute("value")].option = false
+                        t1--;
+                    }
                 }
                 else {
-                    this.classList.toggle('click_show_canvas')
-                    picture_array[canvas.getAttribute("value")].option = false
+                    if (picture_array[canvas.getAttribute("value")].option == true) {
+                        this.classList.toggle('click_show_canvas')
+                        picture_array[canvas.getAttribute("value")].option = false
+                        t1--;
+                    }
                 }
-                console.log(picture_array[canvas.getAttribute("value")])
+
+                console.log(picture_array)
+
+                for (var content of picture_array) {
+                    if (content.option)
+                        time++;
+                }
+
+                if (time == 0) {
+                    y.style.display = "none"
+                    x.style.display = "block"
+                } else {
+                    x.style.display = "none"
+                    y.style.display = "block"
+                }
+
+
+                console.log(time)
+                number.innerText = time.toString()
             })
             index++;
         })

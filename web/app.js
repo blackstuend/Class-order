@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost/face');
 app.use(serve(__dirname + '/public'));
 app.use(views(path.join(__dirname, '/views'), { extension: 'ejs' }));
 app.use(logger())
-app.use(koaBody())
+app.use(koaBody({ multipart: true }));
 app.keys = ['key1'];
 app.use(session(app));
 

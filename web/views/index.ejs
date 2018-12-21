@@ -7,43 +7,38 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
     <style>
-        .stu {
-            border: #aaaaaa 1px solid;
-            height: 430px;
-            text-align: center;
+        body{
+            background-color: #efefef;
         }
-
-        .prof {
-            border: #aaaaaa 1px solid;
-
-            text-align: center;
-        }
+      .stu{
+        border:#aaaaaa 1px solid;
+        background-color: #ffffff;         
+         height:430px ;
+         text-align: center;
+      }
+      .prof{
+        border:#aaaaaa 1px solid;
+        background-color: #ffffff;
+        text-align: center;
+      }
     </style>
-
-<body>
-    <div class="container">
-        <div class="row" style="margin-top:40px;">
-        </div>
+    <body>
+        <div class="container" >
+            <div class="row"style="margin-top:40px;">
+            </div>
         <div class="row  justify-content-around">
-            <div class="stu col-md-5 jumbotron jumbotron-fluid">
-                <h1 style="margin-bottom:50px;">STUDENT!</h1>
-                <p class="lead" style="margin-bottom:50px;">Login here</p>
-                <p><a class="btn btn-primary btn-lg" href="/stulogin" role="button">Login</a></p>
-            </div>
-            <div class="prof col-md-5 jumbotron jumbotron-fluid">
+          <div class="stu col-md-5 jumbotron jumbotron-fluid" >
+            <h1 style="margin-bottom:50px;">STUDENT!</h1>
+            <p class="lead" style="margin-bottom:50px;">Login here</p>
+            <p><a class="btn btn-primary btn-lg" href="/stulogin" role="button">Login</a></p>
+          </div>
+          <div class="prof col-md-5 jumbotron jumbotron-fluid">
                 <h1 style="margin-bottom:50px;">PROFESSOR!</h1>
-                <p class="lead" style="margin-bottom:50px;">Login here</p>
+                <p class="lead"style="margin-bottom:50px;">Login here</p>
                 <p><a class="btn btn-primary btn-lg" href="/prologin" role="button">Login</a></p>
-            </div>
+              </div>
         </div>
-        <div class="row justify-content-around">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    Don't have an account?
-                    <a class="btn btn-primary" href="/register" role="button">REGISTER</a>
-                </div>
-            </div>
-        </div>
+        <div class="row justify-content-around" >
     </div>
-</body>
+    </body>
 </head>
