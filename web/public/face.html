@@ -10,7 +10,7 @@
     <script src="./build/data/face-min.js"></script>
 
     <style>
-        .video,#canvas {
+        .video,.canvas {
              position: absolute; 
         } 
         .container-fluid{
@@ -40,8 +40,6 @@
         }
     </style>
     <script type="text/javascript">
-
-
     </script>
 
 </head>
@@ -73,11 +71,41 @@
 
     </div>
     <div class='col-md-5 ' style="margin-left:20px;  ">
-        <a class='btn btn-primary ui green button fluid ' style="width:535px;">傳送</a>
+        <button class='btn btn-primary ui green button fluid ' id='send_button' style="width:535px;">傳送</bttton>
     </div>
 </body>
 <script>
+    var count=0;
+    function send(canvas) {
+        const dataURL = canvas.toDataURL('image/png')
+        const blobBin = atob(dataURL.split(',')[1])
+        const array = []
+        for (let i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i))
+        }
+        const file = new Blob([new Uint8Array(array)], { type: 'image/png' })
+        // 將file 加至 formData
+        const formData = new FormData()
+        formData.append('file', file, `${count}.png`)
+        // send ajax request 
+        fetch('/face_save', {
+            method: 'POST',
+            body: formData
+        }).then(res => res.text())
+            .then(resText => console.log(resText))
+        count++;
+    }
     window.onload = function () {
+        var send_button = document.querySelector("#send_button")
+        send_button.onclick = function () {
+            for ( content of picture_array){
+                if(content.option)
+                send(content.img);
+            }
+            if(count == 5)
+            location.href='/'
+        }
+        //
         var index = 0;
         var video = document.getElementById('video');
         var canvas = document.getElementById('canvas');
@@ -91,7 +119,6 @@
         var y = document.getElementById("num");
         y.style.display = "none"
         var t1 = 0;
-
         take_picture.addEventListener('click', function () {
             var canvas = document.createElement('canvas');
             var context = canvas.getContext('2d');
@@ -102,7 +129,6 @@
             picture_array.push({ img: canvas, option: false });
             show_picutre.appendChild(canvas);
             var time = 0;
-
             canvas.addEventListener('click', function () {
                 time = 0;
                 console.log(t1)
@@ -125,14 +151,11 @@
                         t1--;
                     }
                 }
-
                 console.log(picture_array)
-
                 for (var content of picture_array) {
                     if (content.option)
                         time++;
                 }
-
                 if (time == 0) {
                     y.style.display = "none"
                     x.style.display = "block"
@@ -140,8 +163,6 @@
                     x.style.display = "none"
                     y.style.display = "block"
                 }
-
-
                 console.log(time)
                 number.innerText = time.toString()
             })

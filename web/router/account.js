@@ -127,3 +127,9 @@ router
         console.log(docs)
         ctx.redirect('/')
     })
+    .get('/search',async function(ctx){
+        var query=ctx.request.query;
+        var docs = await common.stu_find({ID:ctx.session.body.ID})
+        var search_thing =await common.search_class(query)
+        await ctx.render('search',{profile:docs})
+    })

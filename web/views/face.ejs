@@ -10,17 +10,20 @@
     <script src="./build/data/face-min.js"></script>
 
     <style>
-        .video,#canvas {
+        #video,#canvas {
              position: absolute; 
         } 
         .container-fluid{
              padding-left:10px;
         }
         .take-btn{
-            margin-top:400px;
+            margin-top:450px;
+            border:1px solid black;
+            position: absolute;
+            top: 80px;
+            right: 320px;
         }
          .show-picture{
-             margin-left: 30px;
              padding: 0;
         } 
         .show_canvas{
@@ -56,23 +59,15 @@
                 <h5><span id='number'>0</span>/5</h5>
             </div>
         </div>
-
         <div class="col-md-6  container-fluid">
-
             <video class="img-thumbnail" alt="Cinque Terre" id="video" width="600" height="480" preload autoplay loop
                 muted></video>
             <canvas id="canvas" width="600" height="480"></canvas>
             <div class="row" id="a"></div>
-
-
-            <div class='offset-md-6'>
-                <!-- <button class='btn btn-primary take-btn'>拍照</button>   -->
-                <a class="take-btn"><img src="./images/button.png" width="50px" height="50px"></a>
-            </div>
         </div>
-
+        <a class="take-btn"><img src="./images/button.png" width="50px" height="50px"></a>
     </div>
-    <div class='col-md-5 ' style="margin-left:20px;  ">
+    <div class='col-md-5 offset-md-4' style="margin-left:20px;  ">
         <button class='btn btn-primary ui green button fluid ' id='send_button' style="width:535px;">傳送</bttton>
     </div>
 </body>
@@ -188,7 +183,7 @@
             })
             index++;
         })
-        tracker.setInitialScale(3);
+        tracker.setInitialScale(5);
         tracker.setStepSize(4);
         tracker.setEdgesDensity(0.1);
         tracking.track('#video', tracker, { camera: true });

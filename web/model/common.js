@@ -77,5 +77,9 @@ module.exports = {
             }
         }
         return table;
+    },
+    search_class:async function(obj){
+        var docs=await db.class_model.find(obj)
+        return docs;
     }
 }
