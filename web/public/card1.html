@@ -14,7 +14,6 @@
     <style>
         body{
             text-align: center;
-            background-color: #ccc;;
         }
         #logo{
             width:100%;
@@ -23,12 +22,18 @@
         #input{
             text-align:center
         }
+        #title{
+            color:darkred
+        }
     </style>
 </head>
 
 <body>
     <div class='col-4 offset-4'>
-        <img src='1.jpg' id='logo' class="img-thumbnail">
+        <div id='title'>
+            賭博小算盤
+        </div>
+            <img src='/1.JPG' id='logo' class="img-thumbnail">
         <form action='/card' method='post'>
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">人數</label>
@@ -63,7 +68,7 @@
                 <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">play${i}'s name</label>
                 <div class="col-sm-10 input">
-                    <input type="text" class="form-control" name='play${i}' value='2' id="person">
+                    <input type="text" class="form-control" name='play${i}' value='' id="person">
                 </div>
                 </div>
             `

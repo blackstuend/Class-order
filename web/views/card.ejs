@@ -140,6 +140,8 @@
     <script>
         $('.play').click(function () {
             input = $(this)
+            $('#num').val('');
+            $('#change').text('')
             $('#exampleModalCenter').modal('show')
             $('#win').click(function () {
                 $('#change').text('win')
