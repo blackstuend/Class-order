@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        @media screen and (max-width: 1000px) {
+            body {
+                background: #ccc;
+                text-align: center
+            }
+            #win{
+                height:100px;
+            }
+            #chance-bar {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            #add {
+                height: 10%;
+            }
+        }
+
+        @media screen and (min-width: 1020px) {
+            body {
+                background: #ccc;
+                text-align: center
+            }
+
+            #chance-bar {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            #add {
+                height: 10%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">玩家</th>
+                <% for(var i=0;i<query.person;i++){ %>
+                <th scope="col">
+                    <%= query.person_name[i] %>
+                </th>
+                <% } %>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=1;i<=query.max;i++){ %>
+            <tr>
+                <th scope="row">第
+                    <%= i %>局</th>
+                <% for(var j=1;j<=query.person;j++){ %>
+                <td>
+                    <div class="form-control col play<%= j %> play">0</div>
+                </td>
+                <% } %>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">輸贏表</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class='form-group'>
+                        <div class='row'>
+                            <button id='win' class='btn btn-primary col'>win</button>
+                            <button id='lose' class='btn btn-danger col'>lose</button>
+                        </div>
+                    </div>
+                    <div class='form-group '>
+                        <label id='change'></label>
+                        <input class='form-control' type='tel' id='num'>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary" id='save'>儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Total</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <% for(var i=0;i<query.person;i++){ %>
+                        <div>
+                            <div class='float-left'>
+                                <%= query.person_name[i] %>:
+                            </div>
+                            <div id='sum<%= i+1 %>'>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id='total' class='btn btn-success'>
+        結算
+    </button>
+    <script>
+        $('.play').click(function () {
+            input = $(this)
+            $('#exampleModalCenter').modal('show')
+            $('#win').click(function () {
+                $('#change').text('win')
+                input.css('background-color', '#0080ff')
+            })
+            $('#lose').click(function () {
+                $('#change').text('lose')
+                input.css('background-color', 'red')
+            })
+            $('#save').click(function () {
+                var money = $('#num').val() *<%= query.pli %>
+                    input.text(money)
+                $('#exampleModalCenter').modal('hide')
+            })
+        })
+        $('#total').click(function () {
+            $('#exampleModalCenter2').modal('show')
+            for(var i=1;i<=<%= query.person %>;i++){
+                var sum=0
+                $(`.play${i}`).each(function(e){
+                    var a = $(this).text()
+                    a = a-0 //轉數字
+                    if($(this).css('background-color') == 'rgb(255, 0, 0)'){
+                    a = 0 - a
+                    }
+                    sum += a
+                })
+                console.log(sum)
+                $(`#sum${i}`).text(sum)
+            }
+        })
+    </script>
+</body>
+
+</html>

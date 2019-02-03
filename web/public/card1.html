@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        body{
+            text-align: center;
+            background-color: #ccc;;
+        }
+        #logo{
+            width:100%;
+            height:100%;
+        }
+        #input{
+            text-align:center
+        }
+    </style>
+</head>
+
+<body>
+    <div class='col-4 offset-4'>
+        <img src='1.jpg' id='logo' class="img-thumbnail">
+        <form action='/card' method='post'>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">人數</label>
+                <div class="col-sm-10 input">
+                    <input type="tel" class="form-control" name='person' id="person" value="4">
+                </div>
+            </div>
+            <button class='btn btn-primary' type='button' id='check'>人數確定</button>
+            <div id='addperson'>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Max局數</label>
+                <input type="tel" class="form-control" name='max' value='20'>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="exampleInputPassword1">比例換算</label>
+                <input type="tel" class="form-control" name='pli' value="1">
+            </div>
+            <button type="submit" class="btn btn-primary">確定</button>
+        </form>
+    </div>
+    <script>
+        $('#check').click(function () {
+            $('#addperson').empty();
+            var num = $('#person').val()
+            num = num - 0
+            for (var i = 1; i <= num; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = `            
+                <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">play${i}'s name</label>
+                <div class="col-sm-10 input">
+                    <input type="text" class="form-control" name='play${i}' value='2' id="person">
+                </div>
+                </div>
+            `
+            $('#addperson').append(div)
+            }
+        })
+    </script>
+</body>
+
+</html>

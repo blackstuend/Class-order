@@ -133,3 +133,17 @@ router
         var search_thing =await common.search_class(query)
         await ctx.render('search',{profile:docs})
     })
+    .post('/card',async function(ctx){
+        var query = ctx.request.body;
+        query.person_name=[]
+        query.person = query.person - 0
+        query.max = query.max - 0
+        query.pli = query.pli -0
+        for(var i = 1;i<=query.person;i++){
+            query.person_name.push(query[`play${i}`])
+        }
+        console.log(query)
+        ctx.render('card',{query:query})
+        ctx.body='123'
+        await ctx.render("card",{query:query})
+    })
