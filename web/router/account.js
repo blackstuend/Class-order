@@ -142,7 +142,7 @@ router
         for(var i = 1;i<=query.person;i++){
             query.person_name.push(query[`play${i}`])
         }
-        console.log(query)
+        // console.log(query)
         ctx.render('card',{query:query})
         ctx.body='123'
         await ctx.render("card",{query:query})

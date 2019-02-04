@@ -91,13 +91,13 @@
                 <div class="modal-body">
                     <div class='form-group'>
                         <div class='row'>
-                            <button id='win' class='btn btn-primary col'>win</button>
-                            <button id='lose' class='btn btn-danger col'>lose</button>
+                            <button id='win' class='btn btn-danger col'>win</button>
+                            <button id='lose' class='btn btn-primary col'>lose</button>
                         </div>
                     </div>
                     <div class='form-group '>
                         <label id='change'></label>
-                        <input class='form-control' type='tel' id='num'>
+                        <input class='form-control' type='tel' id='num' required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -138,23 +138,30 @@
         結算
     </button>
     <script>
+        var select = false;
         $('.play').click(function () {
             input = $(this)
             $('#num').val('');
             $('#change').text('')
             $('#exampleModalCenter').modal('show')
             $('#win').click(function () {
+                select = true ;
                 $('#change').text('win')
                 input.css('background-color', '#0080ff')
             })
             $('#lose').click(function () {
+                select = true ;
                 $('#change').text('lose')
                 input.css('background-color', 'red')
             })
             $('#save').click(function () {
+                if(select){
                 var money = $('#num').val() *<%= query.pli %>
                     input.text(money)
                 $('#exampleModalCenter').modal('hide')
+                }
+                else
+                alert('請選擇輸或贏')
             })
         })
         $('#total').click(function () {

@@ -38,7 +38,7 @@
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">人數</label>
                 <div class="col-sm-10 input">
-                    <input type="tel" class="form-control" name='person' id="person" value="4">
+                    <input type="tel" class="form-control" name='person' id="person" value="4" required>
                 </div>
             </div>
             <button class='btn btn-primary' type='button' id='check'>人數確定</button>
@@ -47,12 +47,12 @@
             <hr>
             <div class="form-group">
                 <label for="exampleInputPassword1">Max局數</label>
-                <input type="tel" class="form-control" name='max' value='20'>
+                <input type="tel" class="form-control" name='max' value='20' required>
             </div>
             <hr>
             <div class="form-group">
                 <label for="exampleInputPassword1">比例換算</label>
-                <input type="tel" class="form-control" name='pli' value="1">
+                <input type="tel" class="form-control" name='pli' value="1" required>
             </div>
             <button type="submit" class="btn btn-primary">確定</button>
         </form>
@@ -68,7 +68,7 @@
                 <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">play${i}'s name</label>
                 <div class="col-sm-10 input">
-                    <input type="text" class="form-control" name='play${i}' value='' id="person">
+                    <input type="text" class="form-control" name='play${i}' value='' id="person" required>
                 </div>
                 </div>
             `
