@@ -138,31 +138,36 @@
         結算
     </button>
     <script>
-        var select = false;
+        var select = null;
         $('.play').click(function () {
             input = $(this)
             $('#num').val('');
             $('#change').text('')
             $('#exampleModalCenter').modal('show')
             $('#win').click(function () {
-                select = true ;
+                select = 'win' ;
                 $('#change').text('win')
-                input.css('background-color', '#0080ff')
+                // input.css('background-color','red')
             })
             $('#lose').click(function () {
-                select = true ;
+                select = 'lose' ;
                 $('#change').text('lose')
-                input.css('background-color', 'red')
+                // $('#change').text('lose')
             })
             $('#save').click(function () {
-                if(select){
+                if(select == 'win'){
                 var money = $('#num').val() *<%= query.pli %>
-                    input.text(money)
+                input.text(money)
+                input.css('background-color','red')
+                $('#exampleModalCenter').modal('hide')
+                }else if(select == 'lose'){
+                var money = $('#num').val() *<%= query.pli %>
+                input.text(money)
+                input.css('background-color', '#0080ff')
                 $('#exampleModalCenter').modal('hide')
                 }
-                else
-                alert('請選擇輸或贏')
             })
+            select = null
         })
         $('#total').click(function () {
             $('#exampleModalCenter2').modal('show')
@@ -171,7 +176,7 @@
                 $(`.play${i}`).each(function(e){
                     var a = $(this).text()
                     a = a-0 //轉數字
-                    if($(this).css('background-color') == 'rgb(255, 0, 0)'){
+                    if($(this).css('background-color') != 'rgb(255, 0, 0)'){
                     a = 0 - a
                     }
                     sum += a
