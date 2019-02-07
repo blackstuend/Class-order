@@ -54,7 +54,7 @@
 
 <body>
     <table class="table">
-        <thead>
+        <thead class='top'>
             <tr>
                 <th scope="col">玩家</th>
                 <% for(var i=0;i<query.person;i++){ %>
@@ -66,7 +66,7 @@
         </thead>
         <tbody>
             <% for(var i=1;i<=query.max;i++){ %>
-            <tr>
+            <tr class='row-<%= i %>'>
                 <th scope="row">第
                     <%= i %>局</th>
                 <% for(var j=1;j<=query.person;j++){ %>
@@ -119,13 +119,13 @@
                 </div>
                 <div class="modal-body">
                     <% for(var i=0;i<query.person;i++){ %>
-                        <div>
-                            <div class='float-left'>
-                                <%= query.person_name[i] %>:
-                            </div>
-                            <div id='sum<%= i+1 %>'>
-                            </div>
+                    <div>
+                        <div class='float-left'>
+                            <%= query.person_name[i] %>:
                         </div>
+                        <div id='sum<%= i+1 %>'>
+                        </div>
+                    </div>
                     <% } %>
                 </div>
                 <div class="modal-footer">
@@ -145,45 +145,66 @@
             $('#change').text('')
             $('#exampleModalCenter').modal('show')
             $('#win').click(function () {
-                select = 'win' ;
+                select = 'win';
                 $('#change').text('win')
                 // input.css('background-color','red')
             })
             $('#lose').click(function () {
-                select = 'lose' ;
+                select = 'lose';
                 $('#change').text('lose')
                 // $('#change').text('lose')
             })
             $('#save').click(function () {
-                if(select == 'win'){
-                var money = $('#num').val() *<%= query.pli %>
-                input.text(money)
-                input.css('background-color','red')
-                $('#exampleModalCenter').modal('hide')
-                }else if(select == 'lose'){
-                var money = $('#num').val() *<%= query.pli %>
-                input.text(money)
-                input.css('background-color', '#0080ff')
-                $('#exampleModalCenter').modal('hide')
+                if (select == 'win') {
+                    var money = $('#num').val() *<%= query.pli %>
+                        input.text(money)
+                    input.css('background-color', 'red')
+                    $('#exampleModalCenter').modal('hide')
+                } else if (select == 'lose') {
+                    var money = $('#num').val() *<%= query.pli %>
+                        input.text(money)
+                    input.css('background-color', '#0080ff')
+                    console.log( input.css('background-color'))
+                    $('#exampleModalCenter').modal('hide')
+                }
+                var max = <%= query.max %>;
+                for (var i = 1; i <= max; i++) {
+                    var sum = 0
+                    var time = 0
+                    $(`.row-${i} .play`).each(function () {
+                        if ($(this).css('background-color') == 'rgb(0, 128, 255)') {
+                            var num = $(this).text() - 0
+                            sum = sum + num;
+                            time++;
+                        }
+                    })
+                    $(`.row-${i} .play`).each(function () {
+                        console.log(time)
+                        console.log($(this).css('background-color'));
+                        if ($(this).css('background-color') == 'rgb(255, 255, 255)' && time  == 3) {
+                            $(this).text(sum)
+                            $(this).css('background-color', 'rgb(255, 0, 0)')
+                        }
+                    })
                 }
             })
             select = null
         })
         $('#total').click(function () {
             $('#exampleModalCenter2').modal('show')
-            for(var i=1;i<=<%= query.person %>;i++){
-                var sum=0
-                $(`.play${i}`).each(function(e){
-                    var a = $(this).text()
-                    a = a-0 //轉數字
-                    if($(this).css('background-color') != 'rgb(255, 0, 0)'){
+            for (var i = 1; i <=<%= query.person %>; i++){
+            var sum = 0
+            $(`.play${i}`).each(function (e) {
+                var a = $(this).text()
+                a = a - 0 //轉數字
+                if ($(this).css('background-color') != 'rgb(255, 0, 0)') {
                     a = 0 - a
-                    }
-                    sum += a
-                })
-                console.log(sum)
-                $(`#sum${i}`).text(sum)
-            }
+                }
+                sum += a
+            })
+            //console.log(sum)
+            $(`#sum${i}`).text(sum)
+        }
         })
     </script>
 </body>
