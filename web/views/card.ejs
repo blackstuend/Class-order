@@ -91,8 +91,7 @@
                 <div class="modal-body">
                     <div class='form-group'>
                         <div class='row'>
-                            <button id='win' class='btn btn-danger col'>win</button>
-                            <button id='lose' class='btn btn-primary col'>lose</button>
+                            <button id='lose' class='btn btn-primary col'>輸</button>
                         </div>
                     </div>
                     <div class='form-group '>
@@ -151,7 +150,7 @@
             })
             $('#lose').click(function () {
                 select = 'lose';
-                $('#change').text('lose')
+                $('#change').text('輸')
                 // $('#change').text('lose')
             })
             $('#save').click(function () {
@@ -167,6 +166,7 @@
                     console.log( input.css('background-color'))
                     $('#exampleModalCenter').modal('hide')
                 }
+                var persons = <%= query.person %>;
                 var max = <%= query.max %>;
                 for (var i = 1; i <= max; i++) {
                     var sum = 0
@@ -181,7 +181,7 @@
                     $(`.row-${i} .play`).each(function () {
                         console.log(time)
                         console.log($(this).css('background-color'));
-                        if ($(this).css('background-color') == 'rgb(255, 255, 255)' && time  == 3) {
+                        if ($(this).css('background-color') == 'rgb(255, 255, 255)' && time  == persons-1) {
                             $(this).text(sum)
                             $(this).css('background-color', 'rgb(255, 0, 0)')
                         }
