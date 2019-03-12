@@ -55,6 +55,11 @@ module.exports = {
         var docs = await save.save();
         return docs;
     },
+    save_Stuclass_data :async function(file){
+        var save = new db.Stuclass_model(file)
+        var docs = await save.save();
+        return docs;
+    },
     take_class_table:async function(ID){
         console.log(ID)
         var docs=await db.class_model.find({ID:ID})

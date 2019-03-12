@@ -24,7 +24,7 @@ app.use(session(app));
 // using router
 app.use(account.routes())
   .use(account.allowedMethods())
-
+  
 // listen
 app.listen(3000,function(){
     console.log('listen on port')

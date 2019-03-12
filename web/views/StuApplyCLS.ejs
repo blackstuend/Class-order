@@ -1,0 +1,152 @@
+<% include ./header %>
+<div class="card " style="margin-top:30px">
+    <div class="card-body p-0 list-group">
+        <li class="list-group-item text-center" id="func">
+            <h4>功能表</h4>
+        </li>
+        <button type="button" id="cls" class="list-group-item list-group-item-action text-center" style="background-color:#f4f4f4"><i
+                class="fa fa-book"></i><strong>課程</strong></button>
+        <a href="/user_stu?cls=1 "><button type="button" id="choose" style="display: show" class="list-group-item list-group-item-action text-center"><strong>選擇課程</strong></button></a>
+        <button type="button" id="choose1" style="display: show" class="list-group-item list-group-item-action text-center"><strong>已選課程</strong></button>
+        <a href="/face" class="list-group-item list-group-item-action text-center" style="background-color:#f4f4f4"><i
+                class="fa fa-camera"></i><strong>拍照</strong></a>
+    </div>
+</div>
+
+
+</div>
+<div id="main" class="card col-md-8" style="display:none">
+    <div class="card-body col-md-8">
+        <h3>這是一個學生使用者介面</h3>
+
+        <p>開始操作時，可於開設課程中點選選擇課程，開放給所有學生點選。</p>
+    </div>
+    <div class="card-body col-md-8">
+        <h3>製作小組</h3>
+        <p>TEAMWORK</p>
+        <p></p>
+    </div>
+</div>
+
+<div id="open" class="card col-md-8">
+    <div class="row ">
+        <div class="col-4" style="padding-left:0px">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action  disabled" data-toggle="list" href="#list-Prof" id="pro">
+                    <% if(name=='ccc1'||'ccc2'||'ccc3'||'ccc4'){ %>陳鍾誠教授
+                    <% } else if(name=='kch1'||'kch2'||'kch3'||'kch4'||'kch5'){ %>柯志亨教授
+                    <% } else if(name=='lcc1'||'lcc2'||'lcc3'||'lcc4'||'lcc5'){ %>李錫捷教授
+                    <% } else if(name=='fcm1'||'fcm2'||'fcm3'||'fcm4'||'fcm5'||'fcm6'){ %>馮玄名院長
+                    <% } else if(name=='zus1'||'zus2'||'zus3'){ %>趙于翔教授
+                    <% } else if(name=='pcr1'||'pcr2'||'pcr3'){ %>潘進儒教授
+                    <% } else if(name=='ccd1'||'ccd2'||'ccd3'||'ccd4'||'ccd5'){ %>陳正德教授
+                    <% } %>
+                </a>
+
+                <!--  <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfCCC"
+                                    id="pros">陳鍾誠教授</a>
+                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfKCH" id="pros">柯志亨教授</a>
+                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfLCC"
+                                    id="pros">李錫捷教授</a>
+                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfFCM"
+                                    id="pros">馮玄名院長</a>
+                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfZUS"
+                                    id="pros">趙于翔教授</a>
+                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfPCR"
+                                    id="pros">潘進儒教授</a>
+                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfCCD"
+                                    id="pros">陳正德教授</a>
+                                    -->
+            </div>
+
+        </div>
+        <div class="col-8">
+            <form action="/addCLS" method="POST">
+                <div class="row ">
+                    <div class="col-md-8">
+                       
+                        <h1 style="margin-left:0px;margin-top:0px;padding: 0px;text-align:left;"><input type="text" readonly class="form-control-plaintext "
+                                style="margin-left:10px;" value="軟件工程" required name="name"></h1>
+                    </div>
+                    <div class="col-md-4"><button class="btn btn-primary" type="submit" style="margin-top:13px" id='create_class'>加入課程</button></div>
+                </div>
+            </form>
+            <div class="card "></div>
+        </div>
+        <div class="col-md-10">
+            <div class="tab-content" style="margin-top: 20px">
+                <div class="tab-pane fade show active" id="list-Prof">
+                    <% if(name=='ccc1'){ %>
+                    <div class="card-body">
+                        <h5 class="card-title">軟件工程</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+</div>
+<div id="open1" class="card col-md-8" style="display: none">
+    <div class="card-body col-md-12">
+        <table BORDER="2" class="bootstrap table col-md-12">
+            <tr>
+                <td>節次/星期</td>
+                <td>星期一</td>
+                <td>星期二</td>
+                <td>星期三</td>
+                <td>星期四</td>
+                <td>星期五</td>
+                <td>星期六</td>
+                <td>星期日</td>
+            </tr>
+            <% for(var i=0;i<=8;i++){ %>
+            <tr>
+                <td>第
+                    <%= i+1 %>節</td>
+                <% for(var j=0;j<7;j++){ %>
+                <td><a href='/class/<%= table[j][i] %>'>
+                        <%= table[j][i]%></a></td>
+                <% } %>
+            </tr>
+            <% }%>
+        </table>
+    </div>
+</div>
+
+</div>
+</div>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('#cls').click(function () {
+            $('#choose').toggle(300)
+            $('#choose1').toggle(300)
+        })
+    })
+    $(document).ready(function () {
+        $('#choose1').click(function () {
+            $('#open1').toggle(300)
+            $('#main').hide();
+            $('#open').hide();
+        })
+        $('#choose').click(function () {
+            $('#open').toggle(300)
+            $('#main').hide();
+            $('#open1').hide();
+        })
+    })
+
+</script>
+
+</html>

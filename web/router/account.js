@@ -6,6 +6,7 @@ const router = module.exports = new Router()
 var check_login=true;
 const professor_option = { user_option: 'Professor' ,check_login:check_login}
 const student_option = { user_option: 'Student',check_login:check_login}
+const ClsList = {list:['ccc','kcg','gcc']}
 
 //router start 
 router
@@ -81,7 +82,7 @@ router
 
     //ajax with reigster determine if ID exist
     .post('/student_find', async function (ctx) {
-        console.log(ctx.request.body)
+        //console.log(ctx.request.body)
         var docs = await common.stu_find(ctx.request.body)
         if (docs)
             ctx.body = false
@@ -89,7 +90,7 @@ router
             ctx.body = true
     })
     .post('/professor_find', async function (ctx) {
-        console.log(ctx.request.body)
+        //console.log(ctx.request.body)
         var docs = await common.pro_find(ctx.request.body)
         if (docs)
             ctx.body = false
@@ -103,13 +104,27 @@ router
 
     //get user_interface
     .get('/user_stu', async function (ctx) {
+        var name=123
+        var cls =ctx.query.cls
         var docs = await common.stu_find({ID:ctx.session.body.ID})
-        await ctx.render('user_stu',{profile:docs})
+      //  console.log(ctx.request.query,"asd")
+      //  console.log(cls)
+        var table = await common.take_class_table(ctx.session.body.ID);
+        
+        await ctx.render('user_stu',{
+            profile:docs, 
+            name:name,
+            cls :cls,
+            table : table
+        })
+        
+        
     })
+    
     .get('/user_pro',async function(ctx){
         var docs = await common.pro_find({ID:ctx.session.body.ID})
         var table = await common.take_class_table(ctx.session.body.ID);
-        console.log(table);
+       // console.log(table);
         await ctx.render('user_pro',{profile:docs,table:table}) 
     })
     //save photo
@@ -122,9 +137,9 @@ router
     // create class
     .post('/create_class',async function(ctx){
         ctx.request.body.ID = ctx.session.body.ID
-        console.log(ctx.request.body);
+       // console.log(ctx.request.body);
         docs=await common.save_class_data(ctx.request.body)
-        console.log(docs)
+        //console.log(docs)
         ctx.redirect('/')
     })
     .get('/search',async function(ctx){
@@ -147,3 +162,33 @@ router
         ctx.body='123'
         await ctx.render("card",{query:query})
     })
+
+    //stu choose class
+    // .get('/cccCLS', async function (ctx) {
+    //     await ctx.render('StuApplyCLS', {CLS_option:'CCC'})
+    // })
+    // .get('/kchCLS', async function (ctx) {
+    //     await ctx.render('StuApplyCLS', {CLS_option:'kch'})
+    // })
+    
+    .get('/user_stu/:name',async function(ctx){
+        var docs = await common.stu_find({ID:ctx.session.body.ID})
+        var name= ctx.params.name
+        var table = await common.take_class_table(ctx.session.body.ID);
+       // console.log(name)
+        await ctx.render('StuApplyCLS',{
+            name:name,
+            list: ClsList,
+            profile:docs,
+            table : table
+        })
+    })
+    .post('/addCLS',async function(ctx){
+        ctx.request.body.ID = ctx.session.body.ID
+       console.log(ctx.request.body);
+        var cls =ctx.query.cls
+        docs=await common.save_Stuclass_data(ctx.request.body)
+       console.log(docs)
+        ctx.redirect('/user_stu?cls=1')
+    })
+    

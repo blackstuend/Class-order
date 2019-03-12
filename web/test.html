@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+<!-- jQuery first, then jQuery min.js, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="<%=contextPath%>/jqueryui/jquery-ui.js"></script>
+</head>
+<style>
+.ui-tooltip, .arrow
+{
+    border: 0px solid #888;
+    border-width:1px;
+}
+.ui-tooltip, .arrow:after
+{
+    background: white;
+    border-radius: 0px;
+    border: 0px solid #888;
+    border-width:1px;
+}
+.ui-tooltip
+{
+    max-width:800px;
+    border-radius:0px;
+    padding: 1px 8px !important;
+    position:absolute;
+    border:1px solid #888;
+    border-width:1px !important;
+    background:white;
+    color:#666;
+    box-shadow: 5px 5px 5px -2px #888888;
+    z-index:100000;
+}
+
+</style>
+<body>
+<section class="testimonial home-page" id="home">
+  <div class="container">
+    <h1>Bringing ease to<br>each home</h1>
+    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+Tooltip on bottom
+</button>
+    <div id="ui-tooltip" class="d-none d-sm-block" style="margin-top: 400px">asdasdsa</div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  // $(document).ready(function (){
+  //   $('[data-toggle="tooltip"]').tooltip({
+  //     container : 'body',
+  //     contain:'asdasdasdwas'
+  //   })
+  // })
+
+  $(function ()
+{
+    //取得浏览器的userAgent字符串
+    var userAgent = navigator.userAgent; 
+    //Chrome浏览器才运行ToolTip
+    if (userAgent.indexOf("Chrome") &gt; -1)
+    {
+        $( document ).tooltip({
+        //此处为了让样式更像原生的做的调整
+        position: {
+            my: "center bottom",
+            at: "center+30 bottom+27"
+            //tip浮动位置，数值调整 中间偏右30 偏下27
+        }});
+    }
+});
+</script>
+</body>

@@ -29,26 +29,36 @@
     <style>
         #video,#canvas {
              position: absolute; 
+             margin: 0;
         } 
+        .container-fluid{
+             padding-left:10px;
+        }
         .take-btn{
-            top: 100px;
+            margin-top:0px;
+            border:1px solid black;
+            position: absolute;
+            top: 80px;
             right: 320px;
         }
          .show-picture{
-            padding: 0;
+             padding: 0;
         } 
         .show_canvas{
             border:1px solid black;
-            padding:5px 2px 2px 5px;
-            margin-left: 20px;
-            width:175px;
-            height:140px;
+            padding-left: 30px;
+            padding-top: 5px;
+            margin-left: 10px;
+            height:120px;
         }
         .click_show_canvas{
             border:2px solid #ad0c0c;
             background-color: #ffffff; opacity:0.6; filter:alpha(opacity=50); 
         }
-   
+        #a
+        {
+            margin-top: 5px;
+        }
     </style>
     <script type="text/javascript">
 
@@ -66,7 +76,7 @@
                     <div class="col-md-2 offset-md-4 form-group" style="margin-top: 7px;">
                         <input type="text" class="form-control" placeholder="請輸入關鍵字">
                     </div>
-                    <div class="col-2">
+                    <div class="col">
                         <button type="submit" class="btn btn-default">搜尋</button>
                     </div>
                     <div class="right menu">
@@ -75,8 +85,9 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top:100px;">
-            <div class='show-picture col-md-5 img-thumbnail pic' style="overflow:scroll;height:330px;" alt="Cinque Terre">
+        <div class="row" style="margin-left:5px;margin-top:100px;">
+
+            <div class='show-picture col-md-5 img-thumbnail pic' alt="Cinque Terre">
                 <div class="card-header" id="sel">
                     <h5>Select Picture</h5>
                 </div>
@@ -84,25 +95,18 @@
                     <h5><span id='number'>0</span>/5</h5>
                 </div>
             </div>
-            <div class="col-md-6  container-fluid">
+            <div class="col-md-6  container">
                 <video class="img-thumbnail" alt="Cinque Terre" id="video" width="600" height="480" preload autoplay
                     loop muted></video>
                 <canvas id="canvas" width="600" height="480"></canvas>
-                <div style="margin-top:330px">
-                </div>
             </div>
-            
+            <div class="col-1"><a class="take-btn"><img src="./images/button.png" width="50px" height="50px"></a>
+            </div>
+            <div class='col-md-4 ' style="margin-left:20px;  ">
+                    <button class='btn btn-primary ui green button fluid ' id='send_button' style="width:535px;">傳送</bttton>
+                </div>
         </div>
-        <div class="row">
-
-                <div class='col-4 ' style="margin:0;padding:0  ">
-                        <button class='btn btn-primary ui green button fluid ' id='send_button' style="width:400px;">傳送</bttton>
-                    </div>
-                    <div class="col-5 offset-md-8" style="margin-top:0"><a class="take-btn"><img src="./images/button.png" width="50px"
-                                height="50px"></a>
-                    </div>
-        </div>
-
+        
     </div>
 </body>
 <script>

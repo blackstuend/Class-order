@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>使用者介面</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="/try/bootstrap/twitter-bootstrap-v2/js/bootstrap-tooltip.js"></script> <!-- 顯示提示框-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous">
+        </script>
+    <link href="/try/bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet">
+
+
+    <style>
+        #profile{
+           background-color: royalblue
+       }
+       #func{
+        list-style:none;
+            background-color:royalblue
+       }
+       strong{
+        color:black;
+        
+       }
+       #topp{
+           margin-top: 20px;
+       }
+       #pro{
+        color: black;
+        margin-bottom:10px;
+        font-weight:bolder;
+        font-size: 25px;
+        background-color: #efefef
+       }
+       #pros{
+        font-weight:bold;
+
+       }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="ui fixed menu navbar ">
+                <div class="container">
+                    <a href="/" class="item">首頁</a>
+                    <div class="col-md-2 offset-md-4 form-group" style="margin-top: 7px;">
+                        <input type="text" class="form-control" placeholder="請輸入關鍵字">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-default">搜尋</button>
+                    </div>
+                    <div class="right menu">
+                        <a href="/logout" class="item">登出</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:90px">
+            <div class="col-sm-3">
+                <!--left col-->
+                <div class="card">
+                    <div class="card-body p-0">
+                        <li class="list-group-item text-center" id="profile">
+                            <h4>Profile</h4>
+                        </li>
+                        <dd class="list-group-item"><strong>名字</strong><span class="float-right">
+                                <%= profile.name %> </span></dd>
+                        <dd class="list-group-item"><strong>學號</strong><span class="float-right">
+                                <%= profile.ID %></span></dd>
+
+                    </div>
+                </div>
