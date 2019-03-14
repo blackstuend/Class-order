@@ -86,5 +86,9 @@ module.exports = {
     search_class:async function(obj){
         var docs=await db.class_model.find(obj)
         return docs;
+    },
+    get_class:async function(name){
+        var docs =await db.Class_model.find({'name':name})
+        return docs;
     }
 }

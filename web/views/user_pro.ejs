@@ -4,25 +4,29 @@
 <head>
     <meta charset="utf-8">
     <title>使用者介面</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
     <style>
-        #profile{
+        #profile {
             background-color: royalblue
         }
-        #func{
-            list-style:none;
-            background-color:royalblue
+
+        #func {
+            list-style: none;
+            background-color: royalblue
         }
     </style>
 
@@ -30,148 +34,152 @@
 
 <body>
 
-        <div class="row">
-            <div class="ui fixed menu navbar">
-                <div class="container">
-                    <a href="javascript:window.location.reload()" class="item">首頁</a>
-                    <div class="col-md-2 offset-md-4 form-group" style="margin-top: 7px">
-                        <input type="text" class="form-control" placeholder="請輸入關鍵字">
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-default">搜尋</button>
-                    </div>
-                    <div class="right menu">
-                        <a href="/logout" class="item">登出</a>
-                    </div>
+    <div class="row">
+        <div class="ui fixed menu navbar">
+            <div class="container">
+                <a href="javascript:window.location.reload()" class="item">首頁</a>
+                <div class="col-md-2 offset-md-4 form-group" style="margin-top: 7px">
+                    <input type="text" class="form-control" placeholder="請輸入關鍵字">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-default">搜尋</button>
+                </div>
+                <div class="right menu">
+                    <a href="/logout" class="item">登出</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row" style="margin-top:90px">
-            <div class="col-sm-3">
-                <!--left col-->
-                <div class="card">
-                    <div class="card-body p-0">
-                        <li class="list-group-item text-center" id="profile">
-                            <h4>Profile</h4>
-                        </li>
-                        <dd class="list-group-item"><strong>名字</strong><i class="fa fa-pencil float-right"></i><span
-                                class="float-right">
-                                <%= profile.name %> </span></dd>
-                        <dd class="list-group-item"><strong>ID</strong><span class="float-right">
-                                <%= profile.ID %></span></dd>
-
-
-                    </div>
-                </div>
-
-                <div class="card " style="margin-top:30px">
-                    <div class="card-body p-0 list-group">
-                        <li class="list-group-item text-center" id="func">
-                            <h4>功能表</h4>
-                        </li>
-                        <button type="button" id="cls" class="list-group-item list-group-item-action text-center" style="background-color:#f4f4f4"><i
-                                class="fa fa-book"></i><strong>課程</strong></button>
-                        <button type="button" id="choose" style="display: none" class="list-group-item list-group-item-action text-center"><strong>開設課程</strong></button>
-                        <button type="button" id="choose1" style="display: none" class="list-group-item list-group-item-action text-center"><strong>已開課程</strong></button>
-                    </div>
-                </div>
+    <div class="row" style="margin-top:90px">
+        <div class="col-sm-3">
+            <!--left col-->
+            <div class="card">
+                <div class="card-body p-0">
+                    <li class="list-group-item text-center" id="profile">
+                        <h4>Profile</h4>
+                    </li>
+                    <dd class="list-group-item"><strong>名字</strong><i class="fa fa-pencil float-right"></i><span
+                            class="float-right">
+                            <%= profile.name %> </span></dd>
+                    <dd class="list-group-item"><strong>ID</strong><span class="float-right">
+                            <%= profile.ID %></span></dd>
 
 
-            </div>
-            <div id="main" class="card col-md-8">
-                <div class="card-body col-md-8">
-                    <h3>這是一個教授使用者介面</h3>
-                    <p>開始操作時，可於開設課程中點選開課課程，開放給所有學生點選。</p>
-                </div>
-                <div class="card-body col-md-8">
-                    <h3>製作小組</h3>
-                    <p>TEAMWORK </p>
-                    <p></p>
                 </div>
             </div>
-            <div id="open" class="card col-md-8" style="display: none">
-                <div class="card-body col-md-12">
-                    <form action='/create_class' method='post'>
-                        <div class="form-row">
-                            <div class="col-md-10 mb-3">
-                                <label for="validationDefault01">課程名稱</label>
-                                <input type="text" class="form-control" id="validationDefault01" placeholder="計算機結構"
-                                    required name='name'>
-                            </div>
+
+            <div class="card " style="margin-top:30px">
+                <div class="card-body p-0 list-group">
+                    <li class="list-group-item text-center" id="func">
+                        <h4>功能表</h4>
+                    </li>
+                    <button type="button" id="cls" class="list-group-item list-group-item-action text-center"
+                        style="background-color:#f4f4f4"><i class="fa fa-book"></i><strong>課程</strong></button>
+                    <button type="button" id="choose" style="display: none"
+                        class="list-group-item list-group-item-action text-center"><strong>開設課程</strong></button>
+                    <button type="button" id="choose1" style="display: none"
+                        class="list-group-item list-group-item-action text-center"><strong>已開課程</strong></button>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="main" class="card col-md-8">
+            <div class="card-body col-md-8">
+                <h3>這是一個教授使用者介面</h3>
+                <p>開始操作時，可於開設課程中點選開課課程，開放給所有學生點選。</p>
+            </div>
+            <div class="card-body col-md-8">
+                <h3>製作小組</h3>
+                <p>TEAMWORK </p>
+                <p></p>
+            </div>
+        </div>
+        <div id="open" class="card col-md-8" style="display: none">
+            <div class="card-body col-md-12">
+                <form action='/create_class' method='post'>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label for="validationDefault01">課程名稱</label>
+                            <input type="text" class="form-control" id="validationDefault01" placeholder="計算機結構"
+                                required name='name'>
                         </div>
-                        <label></label>
+                    </div>
+                    <label></label>
 
-                        <div class="form-row">
-                            <div class="form-group has-float-label ">
-                                上課日期<select class="form-control custom-select" id="day" style="margin-top:5px " name='date'>
-                                    <option selected>星期一</option>
-                                    <option>星期二</option>
-                                    <option>星期三</option>
-                                    <option>星期四</option>
-                                    <option>星期五</option>
-                                    <option>星期六</option>
-                                    <option>星期日</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group has-float-label" style="margin:0 0 0 20px">
-                                開始上課節數<select class="form-control custom-select" name='start_time' id="startcls" style="margin-top:5px">
-
-                                    <option selected>第一節</option>
-                                    <option>第二節</option>
-                                    <option>第三節</option>
-                                    <option>第四節</option>
-                                    <option>第五節</option>
-                                    <option>第六節</option>
-                                    <option>第七節</option>
-                                    <option>第八節</option>
-                                    <option>第九節</option>
-                                </select>
-                            </div>
-                            <div class="form-group has-float-label" style="margin-left:20px">
-                                結束上課節數<select class="form-control custom-select" name='end_time' id="endcls" style="margin-top:5px">
-                                    <option selected>第一節</option>
-                                    <option>第二節</option>
-                                    <option>第三節</option>
-                                    <option>第四節</option>
-                                    <option>第五節</option>
-                                    <option>第六節</option>
-                                    <option>第七節</option>
-                                    <option>第八節</option>
-                                    <option>第九節</option>
-                                </select>
-                            </div>
+                    <div class="form-row">
+                        <div class="form-group has-float-label ">
+                            上課日期<select class="form-control custom-select" id="day" style="margin-top:5px " name='date'>
+                                <option selected>星期一</option>
+                                <option>星期二</option>
+                                <option>星期三</option>
+                                <option>星期四</option>
+                                <option>星期五</option>
+                                <option>星期六</option>
+                                <option>星期日</option>
+                            </select>
                         </div>
-                        <button class="btn btn-primary" type="submit" style="margin-top:20px" id='create_class'>開課</button>
-                    </form>
-                </div>
+
+                        <div class="form-group has-float-label" style="margin:0 0 0 20px">
+                            開始上課節數<select class="form-control custom-select" name='start_time' id="startcls"
+                                style="margin-top:5px">
+
+                                <option selected>第一節</option>
+                                <option>第二節</option>
+                                <option>第三節</option>
+                                <option>第四節</option>
+                                <option>第五節</option>
+                                <option>第六節</option>
+                                <option>第七節</option>
+                                <option>第八節</option>
+                                <option>第九節</option>
+                            </select>
+                        </div>
+                        <div class="form-group has-float-label" style="margin-left:20px">
+                            結束上課節數<select class="form-control custom-select" name='end_time' id="endcls"
+                                style="margin-top:5px">
+                                <option selected>第一節</option>
+                                <option>第二節</option>
+                                <option>第三節</option>
+                                <option>第四節</option>
+                                <option>第五節</option>
+                                <option>第六節</option>
+                                <option>第七節</option>
+                                <option>第八節</option>
+                                <option>第九節</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="margin-top:20px" id='create_class'>開課</button>
+                </form>
             </div>
-            <div id="open1" class="card col-md-8" style="display: none">
-                <div class="card-body col-md-12">
-                    <table BORDER="2" class="bootstrap table col-md-12">
-                        <tr>
-                            <td>節次/星期</td>
-                            <td>星期一</td>
-                            <td>星期二</td>
-                            <td>星期三</td>
-                            <td>星期四</td>
-                            <td>星期五</td>
-                            <td>星期六</td>
-                            <td>星期日</td>
-                        </tr>
-                        <% for(var i=0;i<=8;i++){ %>
-                        <tr>
+        </div>
+        <div id="open1" class="card col-md-8" style="display: none">
+            <div class="card-body col-md-12">
+                <table BORDER="2" class="bootstrap table col-md-12">
+                    <tr>
+                        <td>節次/星期</td>
+                        <td>星期一</td>
+                        <td>星期二</td>
+                        <td>星期三</td>
+                        <td>星期四</td>
+                        <td>星期五</td>
+                        <td>星期六</td>
+                        <td>星期日</td>
+                    </tr>
+                    <% for(var i=0;i<=13;i++){ %>
+                    <tr>
                         <td>第<%= i+1 %>節</td>
-                            <% for(var j=0;j<7;j++){ %>
-                                <td><a href='/class/<%= table[j][i] %>'><%= table[j][i]%></a></td>
-                            <% } %>
-                        </tr>
-                        <% }%>
-                    </table>
-                </div>
+                        <% for(var j=0;j<7;j++){ %>
+                        <td></td>
+                        <% } %>
+                    </tr>
+                    <% }%>
+                </table>
             </div>
         </div>
+    </div>
 </body>
 
 <script>
@@ -191,6 +199,35 @@
             $('#open1').hide();
         })
     })
+    window.onload = async function () {
+        await fetch('/get_class')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                var change = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '日': 7 }
+                var class_time = myJson.time;
+                var class_name = myJson.class;
+                var class_number = myJson.class_number;
+                var re = /\((.)\)(\d+)-?(\d{0,3})/g
+                for (let i in class_time) {
+                    re.exec(class_time)
+                    var day = change[RegExp.$1]
+                    var start_time = RegExp.$2 - 0
+                    var end_time = RegExp.$3 - 0
+                    var text = class_name[i]
+                    var text_link = text.link(`/user_pro/${class_number[i]}`);
+                    for (j = start_time; j <= end_time; j++) {
+                        var table = document.querySelectorAll('tr')[j].querySelectorAll('td')[day].innerHTML = text_link
+                    }
+                    if (end_time == '') {
+                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[day].innerHTML =  text_link
+                        re.exec(class_time)
+                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[change[RegExp.$1]].innerHTML =  text_link
+                    }
+                }
+            });
+    }
 </script>
 
 </html>

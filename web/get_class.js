@@ -6,7 +6,8 @@ const Class = new Schema({
     name: String,
     value: String,
     class: [String],
-    Time: [String]
+    time: [String],
+    class_number:[String]
 });
 var class_model = mongoose.model('Class', Class)
 
@@ -27,6 +28,7 @@ function get_teachers(text) {
 }
 
 (async () => {
+    await class_model.remove({}) //先刪除原本的
     const browser = await puppeteer.launch({
         headless: true
     });
@@ -45,7 +47,7 @@ function get_teachers(text) {
     await menu.evaluate(function () {  //模擬按下老師介面
         let choose = document.querySelectorAll('.ob_td')[19].querySelector('div')
         choose.click();
-    })
+    }) 
     await page.waitFor(1000) //等待500
     const top = (await page.frames())[4];
     await top.select('select[name="unit"]', 'UE85'); //選擇資工系 
@@ -65,19 +67,29 @@ function get_teachers(text) {
             var result = {}
             result.class=[]
             result.time=[]
+            result.class_number= []
             var teacher_table = document.querySelectorAll('table')[0]
             var tr = teacher_table.querySelectorAll('tr');
             for (let j = 1; j < tr.length; j++) {
                 let td = tr[j].querySelectorAll('td')
                 result.class.push(td[1].innerText) //td[1] = 課堂名稱 td[8] = 時間
                 result.time.push(td[8].innerText) //td[1] = 課堂名稱 td[8] = 時間
+                result.class_number.push(td[0].innerText)
             }
-            return result;
+            return result; // 
         })
+        teachers_array[i].class_number=result.class_number
         teachers_array[i].class=result.class
         teachers_array[i].time=result.time
         await page.waitFor(1000) //等待500
     }
-    console.log(teachers_array)
+    for(i in teachers_array){ //將資料存進db
+        var class_save = await new class_model(teachers_array[i]);
+        await class_save.save();
+    }
+    console.log('finish') 
+    browser.close(); //close all thing
+    mongoose.disconnect()
+    return 0;
 })();
 

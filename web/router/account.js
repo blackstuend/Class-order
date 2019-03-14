@@ -123,9 +123,9 @@ router
     
     .get('/user_pro',async function(ctx){
         var docs = await common.pro_find({ID:ctx.session.body.ID})
-        var table = await common.take_class_table(ctx.session.body.ID);
-       // console.log(table);
-        await ctx.render('user_pro',{profile:docs,table:table}) 
+        // var table = await common.get_class(docs.name);
+        // console.log(table[0])
+        await ctx.render('user_pro',{profile:docs}) 
     })
     //save photo
     .post('/face_save',async function(ctx){
@@ -185,10 +185,14 @@ router
     })
     .post('/addCLS',async function(ctx){
         ctx.request.body.ID = ctx.session.body.ID
-       console.log(ctx.request.body);
+    //    console.log(ctx.request.body);
         var cls =ctx.query.cls
         docs=await common.save_Stuclass_data(ctx.request.body)
-       console.log(docs)
+    //    console.log(docs)
         ctx.redirect('/user_stu?cls=1')
     })
-    
+    .get('/get_class',async function(ctx){ //for the ajax
+        var docs = await common.pro_find({ID:ctx.session.body.ID})
+        var table = await common.get_class(docs.name);
+        ctx.body = table[0]
+    })
