@@ -100,6 +100,6 @@ module.exports = {
     },
     find_stuclass:async function(obj){
         var docs = await db.stu_class.find(obj);
-        console.log(docs)
+        return docs;
     }
 }

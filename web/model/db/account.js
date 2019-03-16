@@ -31,7 +31,9 @@ const allClass = new Schema({
 })
 const stu_addclass = new Schema({
     class_number:String,
-    student_ID :String
+    student_ID :String,
+    class_time :String,
+    class_name:String
 })
 module.exports={
     student_model:mongoose.model('student',Account_data),

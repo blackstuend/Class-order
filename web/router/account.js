@@ -154,9 +154,7 @@ router
     .get('/user_stu/:class_number',async function(ctx){
         var docs = await common.stu_find({ID:ctx.session.body.ID})
         var class_number= ctx.params.class_number
-        console.log(class_number)
         var class_profile = await common.get_allclass({class_number:class_number})
-        console.log(class_profile)
         await ctx.render('StuApplyCLS',{
             class_profile :class_profile,
             list: ClsList,
@@ -164,8 +162,9 @@ router
         })
     })
     .post('/addCLS',async function(ctx){
-        var number = ctx.request.body.number
-        var obj = {student_ID:ctx.session.body.ID,class_number:number}
+        var body = ctx.request.body
+        console.log('class_name is '+body.name)
+        var obj = {student_ID:ctx.session.body.ID,class_number:body.number,class_time:body.time,class_name:body.named}
         await common.add_stuclass(obj)
         ctx.redirect('/user_stu?cls=1')
     })
@@ -180,6 +179,6 @@ router
         ctx.body = docs;
     })
     .get('/get_stu_class',async function(ctx){
-        var class_array = await common.find_stuclass({student_ID:ctx.session.ID})
+        var class_array = await common.find_stuclass({student_ID:ctx.session.body.ID})
         return ctx.body = class_array;
     })

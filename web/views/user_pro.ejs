@@ -209,11 +209,11 @@
                 var class_time = myJson.time;
                 var class_name = myJson.class;
                 var class_number = myJson.class_number;
-                var re = /\((.)\)(\d+)-?(\d{0,3})/g
+                var re = /\((.)\)(\d+)-?(\d{0,3})/g;
                 for (let i in class_time) {
                     re.exec(class_time)
                     var day = change[RegExp.$1]
-                    var start_time = RegExp.$2 - 0
+                    var start_time = parseInt(RegExp.$2)
                     var end_time = RegExp.$3 - 0
                     var text = class_name[i]
                     var text_link = text.link(`/user_pro/${class_number[i]}`);

@@ -169,12 +169,36 @@
         });
     var class_table = document.querySelector('#choose1');
     class_table.addEventListener('click', function () {
-        fetch('/getallclass')
-        .then(function (response) {
-            return response.json();
-        }).then(function(body){
-            
-        })
+        fetch('/get_stu_class')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                var array =[]
+                for(let i in myJson){
+                    array.push(myJson[i].class_time)
+                }
+                var re = /\((.)\)(\d+)-?(\d{0,3})/g;
+                for (let i in myJson) {
+                    var change = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '日': 7 }
+                    var class_name = myJson[i].class_name;
+                    var class_number = myJson[i].class_number;
+                    re.exec(array)
+                    var day = change[RegExp.$1]
+                    var start_time = parseInt(RegExp.$2)
+                    var end_time = RegExp.$3 - 0
+                    var text = class_name
+                    var text_link = text.link(`/user_stu/${class_number}`);
+                    for (j = start_time; j <= end_time; j++) {
+                        var table = document.querySelectorAll('tr')[j].querySelectorAll('td')[day].innerHTML = text_link
+                    }
+                    if (end_time == '') {
+                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[day].innerHTML = text_link
+                        re.exec(array)
+                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[change[RegExp.$1]].innerHTML = text_link
+                    }
+                }
+            });
     })
 </script>
 
