@@ -82,7 +82,6 @@ router
 
     //ajax with reigster determine if ID exist
     .post('/student_find', async function (ctx) {
-        //console.log(ctx.request.body)
         var docs = await common.stu_find(ctx.request.body)
         if (docs)
             ctx.body = false
@@ -90,7 +89,6 @@ router
             ctx.body = true
     })
     .post('/professor_find', async function (ctx) {
-        //console.log(ctx.request.body)
         var docs = await common.pro_find(ctx.request.body)
         if (docs)
             ctx.body = false
@@ -107,15 +105,10 @@ router
         var name=123
         var cls =ctx.query.cls
         var docs = await common.stu_find({ID:ctx.session.body.ID})
-      //  console.log(ctx.request.query,"asd")
-      //  console.log(cls)
-        var table = await common.take_class_table(ctx.session.body.ID);
-        
         await ctx.render('user_stu',{
             profile:docs, 
             name:name,
             cls :cls,
-            table : table
         })
         
         
@@ -123,8 +116,6 @@ router
     
     .get('/user_pro',async function(ctx){
         var docs = await common.pro_find({ID:ctx.session.body.ID})
-        // var table = await common.get_class(docs.name);
-        // console.log(table[0])
         await ctx.render('user_pro',{profile:docs}) 
     })
     //save photo
@@ -137,9 +128,7 @@ router
     // create class
     .post('/create_class',async function(ctx){
         ctx.request.body.ID = ctx.session.body.ID
-       // console.log(ctx.request.body);
         docs=await common.save_class_data(ctx.request.body)
-        //console.log(docs)
         ctx.redirect('/')
     })
     .get('/search',async function(ctx){
@@ -157,42 +146,40 @@ router
         for(var i = 1;i<=query.person;i++){
             query.person_name.push(query[`play${i}`])
         }
-        // console.log(query)
         ctx.render('card',{query:query})
         ctx.body='123'
         await ctx.render("card",{query:query})
     })
-
-    //stu choose class
-    // .get('/cccCLS', async function (ctx) {
-    //     await ctx.render('StuApplyCLS', {CLS_option:'CCC'})
-    // })
-    // .get('/kchCLS', async function (ctx) {
-    //     await ctx.render('StuApplyCLS', {CLS_option:'kch'})
-    // })
     
-    .get('/user_stu/:name',async function(ctx){
+    .get('/user_stu/:class_number',async function(ctx){
         var docs = await common.stu_find({ID:ctx.session.body.ID})
-        var name= ctx.params.name
-        var table = await common.take_class_table(ctx.session.body.ID);
-       // console.log(name)
+        var class_number= ctx.params.class_number
+        console.log(class_number)
+        var class_profile = await common.get_allclass({class_number:class_number})
+        console.log(class_profile)
         await ctx.render('StuApplyCLS',{
-            name:name,
+            class_profile :class_profile,
             list: ClsList,
             profile:docs,
-            table : table
         })
     })
     .post('/addCLS',async function(ctx){
-        ctx.request.body.ID = ctx.session.body.ID
-    //    console.log(ctx.request.body);
-        var cls =ctx.query.cls
-        docs=await common.save_Stuclass_data(ctx.request.body)
-    //    console.log(docs)
+        var number = ctx.request.body.number
+        var obj = {student_ID:ctx.session.body.ID,class_number:number}
+        await common.add_stuclass(obj)
         ctx.redirect('/user_stu?cls=1')
     })
     .get('/get_class',async function(ctx){ //for the ajax
         var docs = await common.pro_find({ID:ctx.session.body.ID})
-        var table = await common.get_class(docs.name);
+        var docs_obj= {name:docs.name}
+        var table = await common.get_class(docs_obj);
         ctx.body = table[0]
+    })
+    .get('/getallclass',async function(ctx){
+        var docs = await common.get_class({})
+        ctx.body = docs;
+    })
+    .get('/get_stu_class',async function(ctx){
+        var class_array = await common.find_stuclass({student_ID:ctx.session.ID})
+        return ctx.body = class_array;
     })

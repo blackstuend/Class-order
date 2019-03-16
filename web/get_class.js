@@ -9,7 +9,14 @@ const Class = new Schema({
     time: [String],
     class_number:[String]
 });
+const allClass = new Schema({
+    class_name:String,
+    class_number:String,
+    class_time :String,
+    class_teacher:String
+})
 var class_model = mongoose.model('Class', Class)
+var allclass_model = mongoose.model('allClass',allClass)
 
 function get_teachers(text) {
     var teachers = []
@@ -29,8 +36,9 @@ function get_teachers(text) {
 
 (async () => {
     await class_model.remove({}) //先刪除原本的
+    await allclass_model.remove({})
     const browser = await puppeteer.launch({
-        headless: true
+        headless: false
     });
     const page = await browser.newPage();
     await page.goto('http://select.nqu.edu.tw/kmkuas/index_sky.html');
@@ -48,7 +56,7 @@ function get_teachers(text) {
         let choose = document.querySelectorAll('.ob_td')[19].querySelector('div')
         choose.click();
     }) 
-    await page.waitFor(1000) //等待500
+    await page.waitFor(1500) //等待500
     const top = (await page.frames())[4];
     await top.select('select[name="unit"]', 'UE85'); //選擇資工系 
     await page.waitFor(1000) //等待500
@@ -57,12 +65,12 @@ function get_teachers(text) {
         return text
     });
     var teachers_array = await get_teachers(option_text)
-    for (i in teachers_array) {
+    for (let i in teachers_array) {
         await top.select('select[name="tea_str1"]', teachers_array[i].value);
         var top_button = await top.$('input')
         await top_button.click()
         const bottom = (await page.frames())[5];
-        await page.waitFor(500)
+        await page.waitFor(1500)
         var result = await bottom.evaluate(() => {
             var result = {}
             result.class=[]
@@ -81,11 +89,21 @@ function get_teachers(text) {
         teachers_array[i].class_number=result.class_number
         teachers_array[i].class=result.class
         teachers_array[i].time=result.time
-        await page.waitFor(1000) //等待500
+        await page.waitFor(1500) //等待500
     }
-    for(i in teachers_array){ //將資料存進db
+    for(let i in teachers_array){ //將資料存進db
         var class_save = await new class_model(teachers_array[i]);
         await class_save.save();
+        for(let j in teachers_array[i].class){
+            var obj  = {};
+            obj.class_name = teachers_array[i].class[j]
+            obj.class_time = teachers_array[i].time[j]
+            obj.class_number = teachers_array[i].class_number[j]
+            obj.class_teacher = teachers_array[i].name
+            console.log(obj)
+            var class_save = await new allclass_model(obj);
+            var class_save = await class_save.save();
+        }
     }
     console.log('finish') 
     browser.close(); //close all thing

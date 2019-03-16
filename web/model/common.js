@@ -2,9 +2,9 @@ const db = require('./db/account')
 const fs = require('fs')
 const path = require('path')
 
-const class_table ={
-    星期一:0,星期二:1,星期三:2,星期四:3,星期五:4,星期六:5,星期日:6,第一節:0,第二節:1,第三節:2,第四節:3,第五節:4,
-    第六節:5,第七節:6,第八節:7,第九節:8
+const class_table = {
+    星期一: 0, 星期二: 1, 星期三: 2, 星期四: 3, 星期五: 4, 星期六: 5, 星期日: 6, 第一節: 0, 第二節: 1, 第三節: 2, 第四節: 3, 第五節: 4,
+    第六節: 5, 第七節: 6, 第八節: 7, 第九節: 8
 }
 module.exports = {
     stu_save: async function (body) {
@@ -34,8 +34,7 @@ module.exports = {
     create_dir: function (name) {
         console.log(name);
         path_name = name.toString();
-        var url = path.join(__dirname,'..', 'public', 'user_images', path_name)
-        console.log(url)
+        var url = path.join(__dirname, '..', 'public', 'user_images', path_name)
         fs.mkdir(url, { recursive: false }, (err) => {
             if (err)
                 throw err;
@@ -43,52 +42,64 @@ module.exports = {
                 console.log('mkdir suceessful at the name')
         });
     },
-    save_photo :function(file,ID) {
+    save_photo: function (file, ID) {
         const reader = fs.createReadStream(file.path);
-        console.log(file.name);
-        var path_url = path.join(__dirname,'..', 'public', 'user_images', ID.toString())
+        // console.log(file.name);
+        var path_url = path.join(__dirname, '..', 'public', 'user_images', ID.toString())
         const stream = fs.createWriteStream(path.join(path_url, file.name));
         reader.pipe(stream);
     },
-    save_class_data :async function(file){
+    save_class_data: async function (file) {
         var save = new db.class_model(file)
         var docs = await save.save();
         return docs;
     },
-    save_Stuclass_data :async function(file){
+    save_Stuclass_data: async function (file) {
         var save = new db.Stuclass_model(file)
         var docs = await save.save();
         return docs;
     },
-    take_class_table:async function(ID){
-        console.log(ID)
-        var docs=await db.class_model.find({ID:ID})
-        var table=[];
-        for(var i=0;i<10;i++)
-        {
-            table[i]=[]
-            for(var j=0;j<7;j++){
-                table[i][j]=null
+    take_class_table: async function (ID) {
+        // console.log(ID)
+        var docs = await db.class_model.find({ ID: ID })
+        var table = [];
+        for (var i = 0; i < 10; i++) {
+            table[i] = []
+            for (var j = 0; j < 7; j++) {
+                table[i][j] = null
             }
         }
-        for (content of docs){
+        for (content of docs) {
             var start = class_table[content.start_time];
             var end = class_table[content.end_time];
-            console.log(start +" "+end)
-            for(var j=start;j<=end;j++){
+            for (var j = start; j <= end; j++) {
                 var week = class_table[content.date];
-                console.log(content.name)
-                table[week][j]=content.name;
+                table[week][j] = content.name;
             }
         }
         return table;
     },
-    search_class:async function(obj){
-        var docs=await db.class_model.find(obj)
+    search_class: async function (obj) {
+        var docs = await db.class_model.find(obj)
         return docs;
     },
-    get_class:async function(name){
-        var docs =await db.Class_model.find({'name':name})
+    get_class: async function (name) {
+        var docs = await db.Class_model.find(name)
         return docs;
+    },
+    get_allclass: async function (obj) {
+        var docs = await db.allclass_model.findOne(obj)
+        return docs
+    },
+    add_stuclass: async function (obj) {
+        var alreay_save = await db.stu_class.findOne(obj)
+        if (alreay_save == null) {
+            var stu_class_save = new db.stu_class(obj)
+            var result = await stu_class_save.save();
+        }
+    },
+    find_stuclass:async function(obj){
+        var docs = await db.stu_class.find(obj);
+        console.log(docs)
     }
 }

@@ -1,158 +1,134 @@
 <% include ./header %>
 
-                <div class="card " style="margin-top:30px">
-                    <div class="card-body p-0 list-group">
-                        <li class="list-group-item text-center" id="func">
-                            <h4>功能表</h4>
-                        </li>
-                        <button type="button" id="cls" class="list-group-item list-group-item-action text-center" style="background-color:#f4f4f4"><i
-                                class="fa fa-book"></i><strong>課程</strong></button>
-                        <button type="button" id="choose" style="display: none" class="list-group-item list-group-item-action text-center"><strong>選擇課程</strong></button>
-                        <button type="button" id="choose1" style="display: none" class="list-group-item list-group-item-action text-center"><strong>已選課程</strong></button>
-                        <a href="/face" class="list-group-item list-group-item-action text-center" style="background-color:#f4f4f4"><i
-                                class="fa fa-camera"></i><strong>拍照</strong></a>
-                    </div>
-                </div>
+<div class="card " style="margin-top:30px">
+    <div class="card-body p-0 list-group">
+        <li class="list-group-item text-center" id="func">
+            <h4>功能表</h4>
+        </li>
+        <button type="button" id="cls" class="list-group-item list-group-item-action text-center"
+            style="background-color:#f4f4f4"><i class="fa fa-book"></i><strong>課程</strong></button>
+        <button type="button" id="choose" style="display: none"
+            class="list-group-item list-group-item-action text-center"><strong>選擇課程</strong></button>
+        <button type="button" id="choose1" style="display: none"
+            class="list-group-item list-group-item-action text-center"><strong>已選課程</strong></button>
+        <a href="/face" class="list-group-item list-group-item-action text-center" style="background-color:#f4f4f4"><i
+                class="fa fa-camera"></i><strong>拍照</strong></a>
+    </div>
+</div>
 
 
-            </div>
-         <% if(cls=='1'){ %>
-                <div id="main" class="card col-md-8" style="display: none">
-            <% }else{ %>
-                <div id="main" class="card col-md-8" >
-                
-            <% } %>        
-            <div class="card-body col-md-8">
-                    <h3>這是一個學生使用者介面</h3>
-                    <p>開始操作時，可於開設課程中點選選擇課程，開放給所有學生點選。</p>
-                </div>
-                <div class="card-body col-md-8">
-                    <h3>製作小組</h3>
-                    <p>TEAMWORK</p>
-                    <p></p>
-                </div>
-            </div>
-            <% if(cls =='1'){ %>
-            <div id="open" class="card col-md-8" >
-            <% } else{ %>
-            <div id="open" class="card col-md-8" style="display:none" >
-            <% } %>
-                <div class="row ">
-                    <div class="col-4" style="padding-left:0px">
-                        <div class="list-group">
-                            <a class="list-group-item list-group-item-action  disabled" data-toggle="list" href="#list-Prof"
-                                id="pro">教授</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfCCC"
-                                id="pros">陳鍾誠教授</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfKCH" id="pros">柯志亨教授</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfLCC"
-                                id="pros">李錫捷教授</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfFCM"
-                                id="pros">馮玄名院長</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfZUS"
-                                id="pros">趙于翔教授</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfPCR"
-                                id="pros">潘進儒教授</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfCCD"
-                                id="pros">陳正德教授</a>
+</div>
+<% if(cls=='1'){ %>
+<div id="main" class="card col-md-8" style="display: none">
+    <% }else{ %>
+    <div id="main" class="card col-md-8">
 
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="tab-content" style="margin-top: 20px">
-                            <div class="tab-pane fade show active" id="list-Prof">請先選擇開課教授，即可找到心中的課程喔</div>
-                            <div class="tab-pane fade" id="list-ProfCCC">
-                                <div class="row">
-                                    <div class="col-12"><a href="/user_stu/ccc1" id="ccc1" class="btn btn-outline-info">軟體工程</a></div>
-                                    <div class="col-12" id="topp"><a href="/user_stu/ccc2" id="ccc1" class="btn btn-outline-info">人工智慧</a></div>
-                                    <div class="col-9" id="topp"><a href="#" id="/user_stu/ccc3" class="btn btn-outline-info">系統程式</a></div>
-                                    <div class="col-9" id="topp"><a href="#" id="/user_stu/ccc4" class="btn btn-outline-info">網頁設計</a></div>
-
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="list-ProfKCH">
-                                <div class="row">
-                                    <div class="col-9"><a href="/user_stu/kch1" class="btn btn-outline-info">資訊網路</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/kch2" class="btn btn-outline-info">Linux作業系統實務</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/kch3" class="btn btn-outline-info">Linux系統自動化運維</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/kch4" class="btn btn-outline-info">企業實務培訓</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/kch5" class="btn btn-outline-info">網路模擬與分析</a></div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="list-ProfLCC">
-                                <div class="row">
-                                    <div class="col-9"><a href="/user_stu/lcc1" class="btn btn-outline-info">ios程式設計</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/lcc2" class="btn btn-outline-info">離散數學</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/lcc3" class="btn btn-outline-info">人工智慧實務</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/lcc4" class="btn btn-outline-info">資訊科技英文導論</a></div>
-                                    <div class="col-9" id="topp"><a href="/user_stu/lcc5" class="btn btn-outline-info">數位人文工具</a></div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="list-ProfFCM">
-                                <div class="row">
-                                    <div class="col-9"><a href="#" class="btn btn-outline-info">資料庫系統管理</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">深度學習</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">智慧型系統</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">行動智慧生活應用</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">行動科技與生活</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">科技論文導讀與寫作</a></div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="list-ProfZUS">
-                                <div class="row">
-                                    <div class="col-9"><a href="#" class="btn btn-outline-info">互動式網頁程式設計</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">計算式智慧</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">程式設計進階</a></div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="list-ProfPCR">
-                                <div class="row">
-                                    <div class="col-9"><a href="#" class="btn btn-outline-info">多媒體整合</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">線性代數</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">多媒體程式設計</a></div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="list-ProfCCD">
-                                <div class="row">
-                                    <div class="col-9"><a href="#" class="btn btn-outline-info">數位邏輯實習</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">電子電路</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">品質工程</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">晶片系統設計</a></div>
-                                    <div class="col-9" id="topp"><a href="#" class="btn btn-outline-info">電子電路實驗</a></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="open1" class="card col-md-8" style="display: none">
-                    <div class="card-body col-md-12">
-                        <table BORDER="2" class="bootstrap table col-md-12">
-                            <tr>
-                                <td>節次/星期</td>
-                                <td>星期一</td>
-                                <td>星期二</td>
-                                <td>星期三</td>
-                                <td>星期四</td>
-                                <td>星期五</td>
-                                <td>星期六</td>
-                                <td>星期日</td>
-                            </tr>
-                            <% for(var i=0;i<=8;i++){ %>
-                            <tr>
-                            <td>第<%= i+1 %>節</td>
-                                <% for(var j=0;j<7;j++){ %>
-                                    <td><a href='/class/<%= table[j][i] %>'><%= table[j][i]%></a></td>
-                                <% } %>
-                            </tr>
-                            <% }%>
-                        </table>
-                    </div>
-                </div>
-
+        <% } %>
+        <div class="card-body col-md-8">
+            <h3>這是一個學生使用者介面</h3>
+            <p>開始操作時，可於開設課程中點選選擇課程，開放給所有學生點選。</p>
+        </div>
+        <div class="card-body col-md-8">
+            <h3>製作小組</h3>
+            <p>TEAMWORK</p>
+            <p></p>
         </div>
     </div>
+    <% if(cls =='1'){ %>
+    <div id="open" class="card col-md-8">
+        <% } else{ %>
+        <div id="open" class="card col-md-8" style="display:none">
+            <% } %>
+            <div class="row ">
+                <div class="col-4" style="padding-left:0px">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action  disabled" data-toggle="list" href="#list-Prof"
+                            id="pro">教授</a>
+                        <a class="list-group-item list-group-item-action teachers" data-toggle="list"
+                            href="#list-ProfCCC" id="pros"></a>
+                        <a class="list-group-item list-group-item-action teachers" data-toggle="list"
+                            href="#list-ProfKCH" id="pros"></a>
+                        <a class="list-group-item list-group-item-action teachers" data-toggle="list"
+                            href="#list-ProfLCC" id="pros"></a>
+                        <a class="list-group-item list-group-item-action teachers" data-toggle="list"
+                            href="#list-ProfFCM" id="pros"></a>
+                        <a class="list-group-item list-group-item-action teachers" data-toggle="list"
+                            href="#list-ProfZUS" id="pros"></a>
+                        <a class="list-group-item list-group-item-action teachers" data-toggle="list"
+                            href="#list-ProfPCR" id="pros"></a>
+                        <a class="list-group-item list-group-item-action teachers" data-toggle="list"
+                            href="#list-ProfCCD" id="pros"></a>
+
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="tab-content" style="margin-top: 20px">
+                        <div class="tab-pane fade show active" id="list-Prof">請先選擇開課教授，即可找到心中的課程喔</div>
+                        <div class="tab-pane fade" id="list-ProfCCC">
+                            <div class="row class">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list-ProfKCH">
+                            <div class="row class">
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list-ProfLCC">
+                            <div class="row class">
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list-ProfFCM">
+                            <div class="row class">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list-ProfZUS">
+                            <div class="row class">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list-ProfPCR">
+                            <div class="row class">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list-ProfCCD">
+                            <div class="row class">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="open1" class="card col-md-8" style="display: none">
+            <div class="card-body col-md-12">
+                <table BORDER="2" class="bootstrap table col-md-12">
+                    <tr>
+                        <td>節次/星期</td>
+                        <td>星期一</td>
+                        <td>星期二</td>
+                        <td>星期三</td>
+                        <td>星期四</td>
+                        <td>星期五</td>
+                        <td>星期六</td>
+                        <td>星期日</td>
+                    </tr>
+                    <% for(var i=0;i<=13;i++){ %>
+                    <tr>
+                        <td>第<%= i+1 %>節</td>
+                        <% for(var j=0;j<7;j++){ %>
+                        <td></td>
+                        <% } %>
+                    </tr>
+                    <% }%>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </body>
 
@@ -175,7 +151,31 @@
             $('#open1').hide();
         })
     })
-
+    fetch('/getallclass')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (teachers_array) {
+            for (let i in teachers_array) {
+                document.querySelectorAll('a.teachers')[i].innerText = teachers_array[i].name
+                for (let j in teachers_array[i].class) {
+                    if (j == 0) {
+                        document.querySelectorAll('.class')[i].innerHTML += ` <div class="col-9" ><a href="/user_stu/${teachers_array[i].class_number[j]}" class="btn btn-outline-info">${teachers_array[i].class[j]}</a></div>`
+                    }
+                    else
+                        document.querySelectorAll('.class')[i].innerHTML += ` <div class="col-9" id="topp"><a href="/user_stu/${teachers_array[i].class_number[j]}" class="btn btn-outline-info">${teachers_array[i].class[j]}</a></div>`
+                }
+            }
+        });
+    var class_table = document.querySelector('#choose1');
+    class_table.addEventListener('click', function () {
+        fetch('/getallclass')
+        .then(function (response) {
+            return response.json();
+        }).then(function(body){
+            
+        })
+    })
 </script>
 
 </html>

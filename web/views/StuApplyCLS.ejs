@@ -33,30 +33,9 @@
         <div class="col-4" style="padding-left:0px">
             <div class="list-group">
                 <a class="list-group-item list-group-item-action  disabled" data-toggle="list" href="#list-Prof" id="pro">
-                    <% if(name=='ccc1'||'ccc2'||'ccc3'||'ccc4'){ %>陳鍾誠教授
-                    <% } else if(name=='kch1'||'kch2'||'kch3'||'kch4'||'kch5'){ %>柯志亨教授
-                    <% } else if(name=='lcc1'||'lcc2'||'lcc3'||'lcc4'||'lcc5'){ %>李錫捷教授
-                    <% } else if(name=='fcm1'||'fcm2'||'fcm3'||'fcm4'||'fcm5'||'fcm6'){ %>馮玄名院長
-                    <% } else if(name=='zus1'||'zus2'||'zus3'){ %>趙于翔教授
-                    <% } else if(name=='pcr1'||'pcr2'||'pcr3'){ %>潘進儒教授
-                    <% } else if(name=='ccd1'||'ccd2'||'ccd3'||'ccd4'||'ccd5'){ %>陳正德教授
-                    <% } %>
+                    <%= class_profile.class_teacher %>
                 </a>
 
-                <!--  <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfCCC"
-                                    id="pros">陳鍾誠教授</a>
-                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfKCH" id="pros">柯志亨教授</a>
-                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfLCC"
-                                    id="pros">李錫捷教授</a>
-                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfFCM"
-                                    id="pros">馮玄名院長</a>
-                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfZUS"
-                                    id="pros">趙于翔教授</a>
-                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfPCR"
-                                    id="pros">潘進儒教授</a>
-                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#list-ProfCCD"
-                                    id="pros">陳正德教授</a>
-                                    -->
             </div>
 
         </div>
@@ -64,10 +43,10 @@
             <form action="/addCLS" method="POST">
                 <div class="row ">
                     <div class="col-md-8">
-                       
                         <h1 style="margin-left:0px;margin-top:0px;padding: 0px;text-align:left;"><input type="text" readonly class="form-control-plaintext "
-                                style="margin-left:10px;" value="軟件工程" required name="name"></h1>
+                                style="margin-left:10px;" value="<%= class_profile.class_name %>" required name="name"></h1>
                     </div>
+                    <input style='display: none' value ="<%= class_profile.class_number %>" name ='number'>
                     <div class="col-md-4"><button class="btn btn-primary" type="submit" style="margin-top:13px" id='create_class'>加入課程</button></div>
                 </div>
             </form>
@@ -76,13 +55,11 @@
         <div class="col-md-10">
             <div class="tab-content" style="margin-top: 20px">
                 <div class="tab-pane fade show active" id="list-Prof">
-                    <% if(name=='ccc1'){ %>
                     <div class="card-body">
-                        <h5 class="card-title">軟件工程</h5>
+                        <h5 class="card-title"><%= class_profile.class_name %></h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
                     </div>
-                    <% } %>
 
                 </div>
 
@@ -108,13 +85,13 @@
                 <td>星期六</td>
                 <td>星期日</td>
             </tr>
-            <% for(var i=0;i<=8;i++){ %>
+            <% for(var i=0;i<=13;i++){ %>
             <tr>
                 <td>第
                     <%= i+1 %>節</td>
                 <% for(var j=0;j<7;j++){ %>
-                <td><a href='/class/<%= table[j][i] %>'>
-                        <%= table[j][i]%></a></td>
+                <td>
+                </td>
                 <% } %>
             </tr>
             <% }%>
@@ -146,7 +123,6 @@
             $('#open1').hide();
         })
     })
-
 </script>
 
 </html>
