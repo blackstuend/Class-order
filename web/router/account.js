@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const common = require('../model/common')
 const router = module.exports = new Router()
-
+const face_model = require('../model/face_model')
 //delcare
 var check_login=true;
 const professor_option = { user_option: 'Professor' ,check_login:check_login}
@@ -60,6 +60,7 @@ router
         if (docs) {
             ctx.redirect("/user_stu")
             ctx.session.body={user_option:"stu",ID:docs.ID}
+            common.ckeck_dir(docs.ID)
         }
         else
         {
@@ -167,6 +168,7 @@ router
         var obj = {student_ID:ctx.session.body.ID,class_number:body.number,class_time:body.time,class_name:body.named}
         await common.add_stuclass(obj)
         ctx.redirect('/user_stu?cls=1')
+        face_model.tranning_class(body.number,ctx.session.body.ID)
     })
     .get('/get_class',async function(ctx){ //for the ajax
         var docs = await common.pro_find({ID:ctx.session.body.ID})

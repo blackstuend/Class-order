@@ -1,7 +1,7 @@
 const db = require('./db/account')
 const fs = require('fs')
 const path = require('path')
-
+const face_m = require('./face_model')
 const class_table = {
     星期一: 0, 星期二: 1, 星期三: 2, 星期四: 3, 星期五: 4, 星期六: 5, 星期日: 6, 第一節: 0, 第二節: 1, 第三節: 2, 第四節: 3, 第五節: 4,
     第六節: 5, 第七節: 6, 第八節: 7, 第九節: 8
@@ -48,6 +48,7 @@ module.exports = {
         var path_url = path.join(__dirname, '..', 'public', 'user_images', ID.toString())
         const stream = fs.createWriteStream(path.join(path_url, file.name));
         reader.pipe(stream);
+        setTimeout(()=>{face_m.cut_detct_face(ID.toString(),file.name.toString())},100)
     },
     save_class_data: async function (file) {
         var save = new db.class_model(file)
@@ -98,8 +99,21 @@ module.exports = {
             var result = await stu_class_save.save();
         }
     },
-    find_stuclass:async function(obj){
+    find_stuclass: async function (obj) {
         var docs = await db.stu_class.find(obj);
         return docs;
+    },
+    ckeck_dir: function (dir_name) {
+        var dir_path = path.join(__dirname,'..','public',"user_images",dir_name.toString())
+        console.log(dir_path)
+        fs.exists(dir_path, function (exists) {
+            if (exists)
+                console.log(exists)
+            else
+                fs.mkdir(dir_path, function (err) {
+                    if (err) console.log(err)
+                    console.log('success')
+                })
+        })
     }
 }
