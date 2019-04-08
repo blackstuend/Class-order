@@ -2,6 +2,9 @@ const db = require('./db/account')
 const fs = require('fs')
 const path = require('path')
 const face_m = require('./face_model')
+const zmq = require('zeromq')
+const sock = zmq.socket('push')
+sock.bindSync('tcp://127.0.0.1:3001');
 const class_table = {
     星期一: 0, 星期二: 1, 星期三: 2, 星期四: 3, 星期五: 4, 星期六: 5, 星期日: 6, 第一節: 0, 第二節: 1, 第三節: 2, 第四節: 3, 第五節: 4,
     第六節: 5, 第七節: 6, 第八節: 7, 第九節: 8
@@ -47,8 +50,11 @@ module.exports = {
         // console.log(file.name);
         var path_url = path.join(__dirname, '..', 'public', 'user_images', ID.toString())
         const stream = fs.createWriteStream(path.join(path_url, file.name));
-        reader.pipe(stream);
-        setTimeout(()=>{face_m.cut_detct_face(ID.toString(),file.name.toString())},100)
+        // reader.pipe(stream);
+        // setTimeout(()=>{face_m.cut_detct_face(ID.toString(),file.name.toString())},100)
+        reader.pipe(stream).on('finish',function(){
+            face_m.cut_detct_face(ID.toString(),file.name.toString())
+        })
     },
     save_class_data: async function (file) {
         var save = new db.class_model(file)
@@ -115,5 +121,12 @@ module.exports = {
                     console.log('success')
                 })
         })
+    },
+    tranning:function(number,ID){
+        obj = {
+            number:number,
+            ID:ID
+        }
+        sock.send(JSON.stringify(obj))
     }
 }

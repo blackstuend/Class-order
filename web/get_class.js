@@ -50,7 +50,7 @@ function get_teachers(text) {
         input[1].value = 'lion850724'
         let login = document.querySelectorAll('.button')[1];
         login.click()
-    });
+    },1);
     await page.waitFor(500) //進入等待500毫秒
     await menu.evaluate(function () {  //模擬按下老師介面
         let choose = document.querySelectorAll('.ob_td')[19].querySelector('div')

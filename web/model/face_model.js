@@ -13,7 +13,9 @@ module.exports = obj = {
             if (err) console.log(err)
         })
         detector.detectFaces(image_).then(function (faceImages) {
+            console.log('use detect')
             faceImages.forEach((face_image) => {
+                console.log('detect face')
                 let image_basenmae = path.basename(image_path, '.png');
                 let finally_path = path.join(dir_path, `face${image_basenmae}.jpg`)
                 fr.saveImage(finally_path, face_image)
@@ -21,11 +23,10 @@ module.exports = obj = {
         })
     },
     tranning_class: function (class_name, user_id) {
-        var recognizer = fr.FaceRecognizer()
+        var recognizer = fr.AsyncFaceRecognizer()
         var class_name = class_name.toString()
         var user_dir = path.join(__dirname, '..', 'public', 'user_images', user_id.toString())
         var data_path = path.join(__dirname, '..', 'tranning_class', `${class_name}.json`)
-        console.log(data_path)
         fs.exists(data_path, function (exists) {
             if (exists)
                 recognizer.load(require(data_path))
