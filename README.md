@@ -6,28 +6,33 @@
 
 
 ```
-$ cd webserver
+$ cd server
 $ npm install
 ```
 
 ## Before open server,we need to get class.
 
 ```
-$ cd webserver
+$ cd ./server/web
 $ node get_class
 ```
 
-## Open web server
+
+## Open web server and zeromq
+
+* use two process to exectue
+
+1. first terminal open web server 
 
 ```
-$ cd webserver
+$ cd server/web
 $ npm install 
 $ node app.js
 ```
 
-## Open zeromq server
+2. second terminal open zeromq server
 
 ```
-$ cd ./webserver/model
-$ node respond
+$ cd server/zeromq
+$ node respone.js
 ```
