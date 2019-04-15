@@ -3,12 +3,16 @@ const fs = require('fs')
 const path = require('path')
 const face_m = require('./face_model')
 const zmq = require('zeromq')
-const sock = zmq.socket('push')
-sock.bindSync('tcp://127.0.0.1:3001');
+// const sock = zmq.socket('push')
+var requester = zmq.socket('req');
+// sock.bindSync('tcp://127.0.0.1:3001');
 const class_table = {
     星期一: 0, 星期二: 1, 星期三: 2, 星期四: 3, 星期五: 4, 星期六: 5, 星期日: 6, 第一節: 0, 第二節: 1, 第三節: 2, 第四節: 3, 第五節: 4,
     第六節: 5, 第七節: 6, 第八節: 7, 第九節: 8
 }
+requester.on('message', function (msg) {
+    console.log(msg.toString());
+})
 module.exports = {
     stu_save: async function (body) {
         var save = new db.student_model(body);
@@ -52,8 +56,8 @@ module.exports = {
         const stream = fs.createWriteStream(path.join(path_url, file.name));
         // reader.pipe(stream);
         // setTimeout(()=>{face_m.cut_detct_face(ID.toString(),file.name.toString())},100)
-        reader.pipe(stream).on('finish',function(){
-            face_m.cut_detct_face(ID.toString(),file.name.toString())
+        reader.pipe(stream).on('finish', function () {
+            face_m.cut_detct_face(ID.toString(), file.name.toString())
         })
     },
     save_class_data: async function (file) {
@@ -110,7 +114,7 @@ module.exports = {
         return docs;
     },
     ckeck_dir: function (dir_name) {
-        var dir_path = path.join(__dirname,'..','public',"user_images",dir_name.toString())
+        var dir_path = path.join(__dirname, '..', 'public', "user_images", dir_name.toString())
         console.log(dir_path)
         fs.exists(dir_path, function (exists) {
             if (exists)
@@ -122,11 +126,21 @@ module.exports = {
                 })
         })
     },
-    tranning:function(number,ID){
+    // tranning:function(number,ID){
+    //     obj = {
+    //         number:number,
+    //         ID:ID
+    //     }
+    //     sock.send(JSON.stringify(obj))
+    // },
+    tranning_req: function (number, ID) {
+        requester.connect('tcp://localhost:3001');
         obj = {
-            number:number,
-            ID:ID
+            number: number,
+            ID: ID
         }
-        sock.send(JSON.stringify(obj))
+        console.log('send')
+
+        requester.send(JSON.stringify(obj));
     }
 }

@@ -20,6 +20,7 @@
     "koa-views": "^6.1.4",
     "mongoose": "^5.3.15",
     "opencv4nodejs": "^4.14.1",
+    "pm2": "^3.5.0",
     "puppeteer": "^1.13.0",
     "zeromq": "^5.1.0"
   }

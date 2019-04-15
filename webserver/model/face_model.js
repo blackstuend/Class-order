@@ -22,7 +22,7 @@ module.exports = obj = {
             })
         })
     },
-    tranning_class: function (class_name, user_id) {
+    tranning_class: function (class_name, user_id,f) {
         var recognizer = fr.AsyncFaceRecognizer()
         var class_name = class_name.toString()
         var user_dir = path.join(__dirname, '..', 'public', 'user_images', user_id.toString())
@@ -41,9 +41,11 @@ module.exports = obj = {
                 const modelState = recognizer.serialize()
                 fs.writeFile(data_path, JSON.stringify(modelState),function(err){
                     if(err)
-                    console.log(err)
-                    else 
+                    f(err)
+                    else{
                     console.log('success')
+                    f(null)
+                    }
                 })
             })
         })

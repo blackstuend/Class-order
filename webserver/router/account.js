@@ -168,7 +168,7 @@ router
         await common.add_stuclass(obj)
         ctx.redirect('/user_stu?cls=1')
         // face_model.tranning_class(body.number,ctx.session.body.ID)
-        common.tranning(body.number,ctx.session.body.ID)
+        common.tranning_req(body.number,ctx.session.body.ID)
     })
     .get('/get_class',async function(ctx){ //for the ajax
         var docs = await common.pro_find({ID:ctx.session.body.ID})

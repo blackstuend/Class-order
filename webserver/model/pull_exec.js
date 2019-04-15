@@ -13,6 +13,8 @@ pullSocket.on('message',function(msg){
     exec(`node face ${obj.number} ${obj.ID}`,function(err,std,stderr){
         if(err)
         return console.log(err);
+        if(stderr)
+        console.log(stderr)
         console.log(std)
     })
 })

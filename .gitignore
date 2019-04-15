@@ -1,4 +1,4 @@
 /images/*
-/web/node_modules/*
-/web/tranning_class/*
-/web/public/user_images/*
+/webserver/node_modules/*
+/webserver/tranning_class/*
+/webserver/public/user_images/*
