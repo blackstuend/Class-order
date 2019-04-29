@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <form method='post' action='/selet_rasberry'>
+        <input style='display: none' value='<%= class_number %>' name='class_number'>
+        選擇機台:<select name="ras_num">
+            <% for(i in ras){ %>
+            <% if(ras[i].status == 'waitting'){ %>
+            <option value='<%= ras[i].number %>'><%= ras[i].number %></option>
+            <% } %>
+            <% } %>
+        </select>
+        點名時間:<select name='time'>
+            <option value='5'>5</option>
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+        </select>
+        <br>
+        <button type='submit' class='btn btn-primary'>傳送</button>
+    </form>
+    <br>
+    <br>
+    <div>
+        <% for(i of class_order){ %>
+            點名時間:<%= i.Time.getMonth()+1 %> 月<%= i.Time.getDate()%>日<br>
+            學生:<%= i.stu %>
+            <hr>
+        <% } %>
+    </div>
+</body>
+
+
+</html>

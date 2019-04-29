@@ -11,7 +11,7 @@ const vCap = new cv.VideoCapture(devicePort);
 const classifier = new cv.CascadeClassifier(cv.HAAR_FRONTALFACE_ALT2);
 const numDetectionsTh = 10;
 let done = false;
-const modelState = require('./model.json')
+const modelState = require('./0145.json')
 const recognizer = fr.AsyncFaceRecognizer()
 recognizer.load(modelState)
 var newFrame;
@@ -29,7 +29,7 @@ const intvl = setInterval(() => {
         newFrame = frame.getRegion(rect).copy();
         drawBlueRect(frame, rect);
         const region_fr = fr.CvImage(newFrame)
-        // recognizer.predictBest(region_fr).then((prediction) => {console.log(prediction)})
+        recognizer.predictBest(region_fr).then((prediction) => {console.log(prediction)})
     });
     cv.imshow('frame', frame);
     const key = cv.waitKey(delay);

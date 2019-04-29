@@ -35,6 +35,14 @@ const stu_addclass = new Schema({
     class_time :String,
     class_name:String
 })
+const class_order = new Schema({
+    number: String,
+    status: String,
+    class_number:String,
+    Time:Object,
+    order_time:String,
+    stu:[String]
+})
 module.exports={
     student_model:mongoose.model('student',Account_data),
     professor_model:mongoose.model('professor',Account_data),
@@ -42,5 +50,6 @@ module.exports={
     Stuclass_model:mongoose.model('Stuclass_data',Stuclass_data),
     Class_model : mongoose.model('Class', Class),
     allclass_model :mongoose.model('allclass',allClass),
-    stu_class :mongoose.model('stu_class',stu_addclass)
+    stu_class :mongoose.model('stu_class',stu_addclass),
+    class_order:mongoose.model('class_order',class_order)
 }

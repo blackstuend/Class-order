@@ -142,5 +142,13 @@ module.exports = {
         console.log('send')
 
         requester.send(JSON.stringify(obj));
+    },
+    save_order :async function(obj){
+        var save = new db.class_order(obj)
+        await save.save();
+        console.log('success save order')
+    },
+    find_order :async function(class_number){
+        return await db.class_order.find({class_number:class_number})
     }
 }

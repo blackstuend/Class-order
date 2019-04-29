@@ -5,6 +5,7 @@ const face_m = require('./face_model')
 responder.on('message', function (msg) {
     console.log('hello')
     var obj = JSON.parse(msg.toString());
+    responder.send(obj.number + 'success received'); 
     face_m.tranning_class(obj.number,obj.ID,function(err){
         if(err){
         responder.send('error');

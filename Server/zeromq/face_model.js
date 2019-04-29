@@ -23,7 +23,7 @@ module.exports = obj = {
         })
     },
     tranning_class: function (class_name, user_id,f) {
-        var recognizer = fr.AsyncFaceRecognizer()
+        var recognizer = fr.FaceRecognizer()
         var class_name = class_name.toString()
         var user_dir = path.join(__dirname, '..', 'web','public', 'user_images', user_id.toString())
         var data_path = path.join(__dirname, '..', 'web','tranning_class', `${class_name}.json`)
