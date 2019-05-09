@@ -14,6 +14,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
     <style>
     </style>
 </head>
@@ -40,9 +42,9 @@
     <br>
     <div>
         <% for(i of class_order){ %>
-            點名時間:<%= i.Time.getMonth()+1 %> 月<%= i.Time.getDate()%>日<br>
-            學生:<%= i.stu %>
-            <hr>
+        點名時間:<%= i.Time.getMonth()+1 %> 月<%= i.Time.getDate()%>日<br>
+        學生:<%= i.stu %>
+        <hr>
         <% } %>
     </div>
 </body>

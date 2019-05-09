@@ -18,6 +18,10 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+
 
     <style>
         #profile {
@@ -38,12 +42,12 @@
         <div class="ui fixed menu navbar">
             <div class="container">
                 <a href="javascript:window.location.reload()" class="item">首頁</a>
-                <div class="col-md-2 offset-md-4 form-group" style="margin-top: 7px">
+                <!-- <div class="col-md-2 offset-md-4 form-group" style="margin-top: 7px">
                     <input type="text" class="form-control" placeholder="請輸入關鍵字">
                 </div>
                 <div class="col">
                     <button type="submit" class="btn btn-default">搜尋</button>
-                </div>
+                </div> -->
                 <div class="right menu">
                     <a href="/logout" class="item">登出</a>
                 </div>
@@ -221,9 +225,9 @@
                         var table = document.querySelectorAll('tr')[j].querySelectorAll('td')[day].innerHTML = text_link
                     }
                     if (end_time == '') {
-                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[day].innerHTML =  text_link
+                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[day].innerHTML = text_link
                         re.exec(class_time)
-                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[change[RegExp.$1]].innerHTML =  text_link
+                        document.querySelectorAll('tr')[RegExp.$2 - 0].querySelectorAll('td')[change[RegExp.$1]].innerHTML = text_link
                     }
                 }
             });
