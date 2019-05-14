@@ -202,7 +202,6 @@ router
     .get('/user_pro/:class_number', async function (ctx) {
         var class_number = ctx.params.class_number
         var class_order = await common.find_order(class_number)
-        console.log(class_order)
         await ctx.render('pro_open', { ras: rasberry_machine, class_number: class_number ,class_order:class_order })
     })
     .post('/selet_rasberry', async function (ctx) {
@@ -218,23 +217,18 @@ router
                 return index;
             }
         })
-        console.log(rasberry_machine)
-        ctx.redirect('/user_pro/' + class_number)
+        ctx.redirect('/rollcall/' + class_number)
     })
     .post('/save_class_stu',async function(ctx){
         var body = ctx.request.body
         var m_n = body.machine_number
         var stu = body.stu
         rasberry_machine.map(function(index){
-            console.log('index is %s',index)
-            console.log('index number is %s',index.number)
             if(index.number == m_n){
-                console.log('index save the stu %s',stu)
                 index.stu.push(stu);
                 return index;
             }
         })
-        console.log(rasberry_machine)
         return ctx.body = 'success save'
     })
     .post('/finish_save',async function(ctx){

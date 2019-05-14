@@ -27,7 +27,7 @@ function send_stu(stu){
 function finish(){
     request.post({url:'http://localhost:3000/finish_save',form:{machine_num:machine_num}},function(err,res,body){
         if(err)
-        return err;
+        return err; 
         return console.log(body)
     })
 }
@@ -68,11 +68,10 @@ function main() { //開始點名
             finish()
         }
     }, 0);
-    // setTimeout(function(){
-    // finish()
-    //     clearInterval(intvl);
-    //     console.log('Timeout exit recognition')
-    // },60*1000) //10分鐘自動關閉
+    setTimeout(function(){
+    finish()
+        clearInterval(intvl);
+        console.log('Timeout exit recognition')
+    },60*1000) //10分鐘自動關閉
 }
-main()
 module.exports = main;
