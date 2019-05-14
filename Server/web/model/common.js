@@ -126,6 +126,10 @@ module.exports = {
                 })
         })
     },
+    
+    find_name : async function(class_number){
+        return await db.allclass_model.find({class_number:class_number})
+    },
     // tranning:function(number,ID){
     //     obj = {
     //         number:number,
