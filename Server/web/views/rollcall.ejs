@@ -20,6 +20,9 @@
 
 
     <style>
+        .body {
+            background-color: #615177
+        }
         #profile {
             background-color: royalblue
         }
@@ -30,7 +33,7 @@
     <div class="row">
         <div class="ui fixed menu navbar">
             <div class="container">
-                <a href="/user_pro" class="item">首頁</a>
+                <a href="javascript:window.location.reload()" class="item">首頁</a>
                 <!-- <div class="col-md-2 offset-md-4 form-group" style="margin-top: 7px">
                             <input type="text" class="form-control" placeholder="請輸入關鍵字">
                         </div>
@@ -62,50 +65,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-7">
-            <div class="card">
-                <form method='post' action='/selet_rasberry' style="margin: 30px 0 0 30px">
-                    <input style='display: none' value='<%= class_number %>' name='class_number'>
-                    <div class="row">
-                        <div class="col" style="margin-left:20px">
-                            <img src="/images/res1.jpg" width="120px" height="120px">
-                            <h2>選擇機台:</h2>
-                            <select name="ras_num">
-                                <% for(i in ras){ %>
-                                <% if(ras[i].status == 'waitting'){ %>
-                                <option value='<%= ras[i].number %>'><%= ras[i].number %></option>
-                                <% } %>
-                                <% } %>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <img src="/images/clk1.jpg" width="120px" height="120px" style="margin-right:20px">
-
-                            <h2>點名時間:</h2>
-                            <select name='time'>
-                                <option value='5'>5</option>
-                                <option value='10'>10</option>
-                                <option value='15'>15</option>
-                            </select>
-
-                            <br>
-                        </div>
-
-                    </div>
-                    <div class="" style="margin:50px 0 30px 650px">
-                        <button type='submit' class='btn btn-primary btn-lg'>傳送</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <br>
-    <br>
-    <div>
+     
+    <div class="card" style="width: 600px">
+        
         <% for(i of class_order){ %>
-        點名時間:<%= i.Time.getMonth()+1 %> 月<%= i.Time.getDate()%>日<br>
-        學生:<%= i.stu %>
+        點名時間:
+        <%= i.Time.getMonth()+1 %> 月 <%= i.Time.getDate()%> 日 <br>
+        學生:
+        <%= i.stu %>
         <hr>
         <% } %>
     </div>

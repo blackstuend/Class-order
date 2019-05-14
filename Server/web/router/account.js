@@ -160,6 +160,22 @@ router
             profile: docs,
         })
     })
+    .get('/user_stu/stu_rollcall/:class_number', async function (ctx) {
+        var docs = await common.stu_find({ ID: ctx.session.body.ID })
+        var class_number = ctx.params.class_number
+        var class_profile = await common.get_allclass({ class_number: class_number })
+
+        var db = await common.find_order(class_number)
+        console.log(db)
+
+
+        await ctx.render('stu_rollcall', {
+            class_profile: class_profile,
+            list: ClsList,
+            profile: docs,
+            db : db
+        })
+    })
     .post('/addCLS', async function (ctx) {
         var body = ctx.request.body
         var obj = { student_ID: ctx.session.body.ID, class_number: body.number, class_time: body.time, class_name: body.named }
@@ -202,8 +218,23 @@ router
     .get('/user_pro/:class_number', async function (ctx) {
         var class_number = ctx.params.class_number
         var class_order = await common.find_order(class_number)
-        console.log(class_order)
-        await ctx.render('pro_open', { ras: rasberry_machine, class_number: class_number ,class_order:class_order })
+        var docs = await common.pro_find({ ID: ctx.session.body.ID })
+        var class_name = await common.get_allclass({class_number:class_number})
+
+        console.log(class_number,class_order)
+        await ctx.render('pro_open', { ras: rasberry_machine, class_number: class_number ,
+                                        class_order:class_order , profile: docs , name:class_name })
+    })
+    .get('/rollcall/:class_number',async function(ctx){
+        var class_number = ctx.params.class_number
+        var class_order = await common.find_order(class_number)
+        var docs = await common.pro_find({ ID: ctx.session.body.ID })
+        var class_name = await common.get_allclass({class_number:class_number})
+
+        console.log(class_number,class_order)
+        await ctx.render('rollcall', { ras: rasberry_machine, class_number: class_number ,
+                                        class_order:class_order , profile: docs , name:class_name })
+    
     })
     .post('/selet_rasberry', async function (ctx) {
         var body = ctx.request.body;
@@ -219,7 +250,7 @@ router
             }
         })
         console.log(rasberry_machine)
-        ctx.redirect('/user_pro/' + class_number)
+        ctx.redirect('/rollcall/' + class_number)
     })
     .post('/save_class_stu',async function(ctx){
         var body = ctx.request.body

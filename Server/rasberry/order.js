@@ -12,7 +12,7 @@ const vCap = new cv.VideoCapture(devicePort);
 const classifier = new cv.CascadeClassifier(cv.HAAR_FRONTALFACE_ALT2);
 const numDetectionsTh = 10;
 let done = false;
-const modelState = require('./0395.json')
+const modelState = require('./data.json')
 const recognizer = fr.AsyncFaceRecognizer()
 recognizer.load(modelState)
 var newFrame;
