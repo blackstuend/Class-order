@@ -275,3 +275,6 @@ router
             }
         })
     })
+    .get('/creative',async function(ctx){
+        await ctx.render('creative')
+    })
