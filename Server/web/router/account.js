@@ -166,14 +166,11 @@ router
         var class_profile = await common.get_allclass({ class_number: class_number })
 
         var db = await common.find_order(class_number)
-        console.log(db)
-
-
         await ctx.render('stu_rollcall', {
             class_profile: class_profile,
             list: ClsList,
             profile: docs,
-            db : db
+            db: db
         })
     })
     .post('/addCLS', async function (ctx) {
@@ -200,18 +197,18 @@ router
     })
     .post('/rasberry', async function (ctx) {
         var m_n = ctx.request.body.machine_number; //m_n = machine_number
-        var check_save = rasberry_machine.some(function(index){
+        var check_save = rasberry_machine.some(function (index) {
             return index.number == m_n
         })
         if (!check_save) {
-            rasberry_machine.push({ number: m_n, status: 'waitting', class_number: null,order_time:null,stu:[],Time:new Date() })
+            rasberry_machine.push({ number: m_n, status: 'waitting', class_number: null, order_time: null, stu: [], Time: new Date() })
             return ctx.body = 'save success'
         };
-        rasberry_machine.forEach(function(val,index){
-            if(val.status == 'already')
-            {
+        rasberry_machine.forEach(function (val, index) {
+            if (val.status == 'already') {
                 rasberry_machine[index].status = 'running'
-                return ctx.body = require('../tranning_class/' + val.class_number + '.json')
+                // return ctx.body = require('../tranning_class/' + val.class_number + '.json')
+                return ctx.body ='start order';
             }
         })
     })
@@ -219,62 +216,62 @@ router
         var class_number = ctx.params.class_number
         var class_order = await common.find_order(class_number)
         var docs = await common.pro_find({ ID: ctx.session.body.ID })
-        var class_name = await common.get_allclass({class_number:class_number})
+        var class_name = await common.get_allclass({ class_number: class_number })
 
-        console.log(class_number,class_order)
-        await ctx.render('pro_open', { ras: rasberry_machine, class_number: class_number ,
-                                        class_order:class_order , profile: docs , name:class_name })
+        await ctx.render('pro_open', {
+            ras: rasberry_machine, class_number: class_number,
+            class_order: class_order, profile: docs, name: class_name
+        })
     })
-    .get('/rollcall/:class_number',async function(ctx){
+    .get('/rollcall/:class_number', async function (ctx) {
         var class_number = ctx.params.class_number
         var class_order = await common.find_order(class_number)
         var docs = await common.pro_find({ ID: ctx.session.body.ID })
-        var class_name = await common.get_allclass({class_number:class_number})
+        var class_name = await common.get_allclass({ class_number: class_number })
+        await ctx.render('rollcall', {
+            ras: rasberry_machine, class_number: class_number,
+            class_order: class_order, profile: docs, name: class_name
+        })
 
-        console.log(class_number,class_order)
-        await ctx.render('rollcall', { ras: rasberry_machine, class_number: class_number ,
-                                        class_order:class_order , profile: docs , name:class_name })
-    
     })
     .post('/selet_rasberry', async function (ctx) {
         var body = ctx.request.body;
         var selet_machine_num = body.ras_num
         var class_number = body.class_number
         var class_time = body.time
-        rasberry_machine.map(function(index){
-            if(index.number == selet_machine_num){
+        rasberry_machine.map(function (index) {
+            if (index.number == selet_machine_num) {
                 index.status = 'already'
                 index.class_number = class_number
                 index.time = class_time;
                 return index;
             }
         })
-        console.log(rasberry_machine)
         ctx.redirect('/rollcall/' + class_number)
     })
-    .post('/save_class_stu',async function(ctx){
+    .post('/save_class_stu', async function (ctx) {
         var body = ctx.request.body
         var m_n = body.machine_number
         var stu = body.stu
-        rasberry_machine.map(function(index){
-            if(index.number == m_n){
+        rasberry_machine.map(function (index) {
+            if (index.number == m_n) {
                 index.stu.push(stu);
                 return index;
             }
         })
         return ctx.body = 'success save'
     })
-    .post('/finish_save',async function(ctx){
+    .post('/finish_save', async function (ctx) {
         var body = ctx.request.body
         var m_n = body.machine_number
-        rasberry_machine.forEach(function(val,index){
-            if(val.machine_number == m_n){
+        rasberry_machine.forEach(function (val, index) {
+            if (val.machine_number == m_n) {
                 common.save_order(rasberry_machine[index])
-                rasberry_machine.splice(index,1)
+                rasberry_machine.splice(index, 1)
                 return ctx.body = 'success save'
             }
         })
     })
-    .get('/creative',async function(ctx){
+    .get('/creative', async function (ctx) {
         await ctx.render('creative')
     })

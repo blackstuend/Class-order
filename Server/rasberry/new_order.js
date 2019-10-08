@@ -1,4 +1,4 @@
-const delay = 10;
+const delay = 100;
 const {
     cv,
     getDataFilePath,
@@ -17,24 +17,24 @@ const recognizer = fr.AsyncFaceRecognizer()
 recognizer.load(modelState)
 var newFrame;
 const machine_num = 1;
-function send_stu(stu){
-    request.post({url:'http://localhost:3000/save_class_stu',form:{stu:stu,machine_number:machine_num}},function(err,res,body){
-        if(err)
-        return err;
+function send_stu(stu) {
+    request.post({ url: 'http://localhost:3000/save_class_stu', form: { stu: stu, machine_number: machine_num } }, function (err, res, body) {
+        if (err)
+            return err;
         return console.log(body)
     })
 }
-function finish(){
-    request.post({url:'http://localhost:3000/finish_save',form:{machine_num:machine_num}},function(err,res,body){
-        if(err)
-        return err; 
+function finish() {
+    request.post({ url: 'http://localhost:3000/finish_save', form: { machine_num: machine_num } }, function (err, res, body) {
+        if (err)
+            return err;
         return console.log(body)
     })
 }
 // finish();
 function main() { //開始點名
     var stu_array = []
-    const intvl = setInterval(() => {
+    var TimeoutID = setTimeout(() => {
         let frame = vCap.read();
         // loop back to start on end of stream reached
         if (frame.empty) {
@@ -50,7 +50,7 @@ function main() { //開始點名
             const region_fr = fr.CvImage(newFrame)
             recognizer.predictBest(region_fr).then((prediction) => {
                 console.log(prediction) //test
-                if (prediction.distance <= 0.7) {
+                if (prediction.distance  <= 0.7) {
                     if (!stu_array.includes(prediction.className)) {
                         // send_stu(prediction.className)
                         stu_array.push(prediction.className)
@@ -60,19 +60,15 @@ function main() { //開始點名
             })
         });
         cv.imshow('frame', frame);
-        const key = cv.waitKey(1000);
+        var key = cv.waitKey(delay);
         done = key !== -1 && key !== 255;
         if (done) {
-            clearInterval(intvl);
+            clearTimeout(TimeoutID);
             console.log('Key pressed, exiting.');
-            // finish()
+            finish()
+            return;
         }
-    }, 0);
-    setTimeout(function(){
-    finish()
-        clearInterval(intvl);
-        console.log('Timeout exit recognition')
-    },60*1000) //10分鐘自動關閉
+        main();
+    }, 1000);
 }
-main();
 module.exports = main;
