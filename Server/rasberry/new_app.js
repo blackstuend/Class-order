@@ -13,7 +13,8 @@ function loop_request() {
             return console.log(err)
         }
         if (body != 'save success' && body != 'Not Found') {
-            order();
+            time=0;
+            order([]);
         }
     })
     setTimeout(loop_request,2000);

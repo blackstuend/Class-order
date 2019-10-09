@@ -32,8 +32,7 @@ function finish() {
     })
 }
 // finish();
-function main() { //開始點名
-    var stu_array = []
+function main(stu_array) { //開始點名
     var TimeoutID = setTimeout(() => {
         let frame = vCap.read();
         // loop back to start on end of stream reached
@@ -49,17 +48,18 @@ function main() { //開始點名
             // drawBlueRect(frame, rect);
             const region_fr = fr.CvImage(newFrame)
             recognizer.predictBest(region_fr).then((prediction) => {
-                console.log(prediction) //test
+                // console.log(prediction) //test
                 if (prediction.distance  <= 0.7) {
+                    // console.log(prediction.className)
                     if (!stu_array.includes(prediction.className)) {
-                        // send_stu(prediction.className)
+                        send_stu(prediction.className)
                         stu_array.push(prediction.className)
                         console.log(stu_array) //test
                     }
                 }
             })
         });
-        cv.imshow('frame', frame);
+        // cv.imshow('frame', frame); //show the views
         var key = cv.waitKey(delay);
         done = key !== -1 && key !== 255;
         if (done) {
@@ -68,7 +68,8 @@ function main() { //開始點名
             finish()
             return;
         }
-        main();
+        main(stu_array);
     }, 1000);
 }
+// main([]);
 module.exports = main;

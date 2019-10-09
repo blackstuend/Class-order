@@ -51,10 +51,16 @@ function get_teachers(text) {
         let login = document.querySelectorAll('.button')[1];
         login.click()
     },1);
-    await page.waitFor(500) //進入等待500毫秒
+    await page.waitFor(1500) //進入等待500毫秒
     await menu.evaluate(function () {  //模擬按下老師介面
-        let choose = document.querySelectorAll('.ob_td')[19].querySelector('div')
-        choose.click();
+        for(var i =0 ;i<document.querySelectorAll('.ob_td').length;i++){
+            console.log(i)
+            if(document.querySelectorAll('.ob_td')[i].innerHTML.includes('教師課表')){
+                console.log(i)
+                let choose = document.querySelectorAll('.ob_td')[i].querySelector('div')
+                return choose.click();
+            }
+        }
     }) 
     await page.waitFor(1500) //等待500
     const top = (await page.frames())[4];

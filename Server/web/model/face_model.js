@@ -9,9 +9,9 @@ module.exports = obj = {
         let dir_path = path.join(__dirname, '..', 'public', 'user_images', user_id.toString())
         let image_path = path.join(dir_path, image_name.toString())
         let image_ = fr.loadImage(image_path)
-        fs.unlink(image_path, function (err) {
-            if (err) console.log(err)
-        })
+        // fs.unlink(image_path, function (err) {
+        //     if (err) console.log(err)
+        // })
         detector.detectFaces(image_).then(function (faceImages) {
             console.log('use detect')
             faceImages.forEach((face_image) => {
