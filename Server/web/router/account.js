@@ -7,9 +7,12 @@ var check_login = true;
 const professor_option = { user_option: 'Professor', check_login: check_login }
 const student_option = { user_option: 'Student', check_login: check_login }
 const ClsList = { list: ['ccc', 'kcg', 'gcc'] }
-
-
 var rasberry_machine = []
+var io;
+setTimeout(() => {
+    io = require('../app.js')
+}, 1000)
+
 //router start 
 router
     .get('/', async function (ctx) {
@@ -204,13 +207,6 @@ router
             rasberry_machine.push({ number: m_n, status: 'waitting', class_number: null, order_time: null, stu: [], Time: new Date() })
             return ctx.body = 'save success'
         };
-        rasberry_machine.forEach(function (val, index) {
-            if (val.status == 'already') {
-                rasberry_machine[index].status = 'running'
-                // return ctx.body = require('../tranning_class/' + val.class_number + '.json')
-                return ctx.body ='start order';
-            }
-        })
     })
     .get('/user_pro/:class_number', async function (ctx) {
         var class_number = ctx.params.class_number
@@ -232,6 +228,7 @@ router
             ras: rasberry_machine, class_number: class_number,
             class_order: class_order, profile: docs, name: class_name
         })
+        console.log(rasberry_machine)
 
     })
     .post('/selet_rasberry', async function (ctx) {
@@ -247,6 +244,16 @@ router
                 return index;
             }
         })
+        var data ={} ;
+        rasberry_machine.forEach(function (val, index) {
+            if (val.status == 'already') {
+                rasberry_machine[index].status = 'running'
+                data.train = require('../tranning_class/' + val.class_number + '.json')
+            }
+        })
+        data.time = class_time
+        var data_string = JSON.stringify(data)
+        io.emit('rasberry',data_string)
         ctx.redirect('/rollcall/' + class_number)
     })
     .post('/save_class_stu', async function (ctx) {

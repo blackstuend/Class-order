@@ -17,7 +17,6 @@ const recognizer = fr.AsyncFaceRecognizer()
 recognizer.load(modelState)
 var newFrame;
 const machine_num = 1;
-var time = 0
 function send_stu(stu) {
     request.post({ url: 'http://localhost:3000/save_class_stu', form: { stu: stu, machine_number: machine_num } }, function (err, res, body) {
         if (err)
@@ -32,8 +31,9 @@ function finish() {
         return console.log(body)
     })
 }
+var time = 0
 // finish();
-function main(stu_array,end_time) { //開始點名
+function main(stu_array,endtime) { //開始點名
     var TimeoutID = setTimeout(() => {
         let frame = vCap.read();
         // loop back to start on end of stream reached
@@ -62,18 +62,18 @@ function main(stu_array,end_time) { //開始點名
         });
         // cv.imshow('frame', frame); //show the views
         var key = cv.waitKey(delay);
-        time ++ ;
-        console.log('now time is = ',time)
         done = key !== -1 && key !== 255;
-        if (done || time == end_time) {
+        time ++ ;
+        console.log(time)
+        if (done || time == endtime) {
             clearTimeout(TimeoutID);
             console.log('Key pressed, exiting.');
             finish()
             time = 0;
             return;
         }
-        main(stu_array,end_time);
+        main(stu_array,endtime);
     }, 1000);
 }
-// main([]);
+main([],100);
 module.exports = main;
