@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>tracking.js - face with camera</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <!-- <script src="/try/bootstrap/twitter-bootstrap-v2/js/bootstrap-tooltip.js"></script> 顯示提示框 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous">
+        </script>
+    <!-- <link href="/try/bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet"> -->
+
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
+    <script src="./build/tracking-min.js"></script>
+    <script src="./build/data/face-min.js"></script>
+
+    <style>
+        #video,#canvas {
+             position: absolute; 
+        } 
+        .take-btn{
+            top: 100px;
+            right: 320px;
+        }
+         .show-picture{
+            padding: 0;
+        } 
+        .show_canvas{
+            border:1px solid black;
+            padding:5px 2px 2px 5px;
+            margin-left: 20px;
+            width:175px;
+            height:140px;
+        }
+        .click_show_canvas{
+            border:2px solid #ad0c0c;
+            background-color: #ffffff; opacity:0.6; filter:alpha(opacity=50); 
+        }
+   
+    </style>
+    <script type="text/javascript">
+
+
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <form id="form1" runat="server"> <div align="center" class="i-canvas"> <canvas id="myCanvas" width="500" height="300"></canvas> <ul> <li><button onclick="javascript:DrawPic();return false;">開始畫圖</button></li> <li><button onclick="javascript:UploadPic();return false;">上傳到伺服器</button></li> </ul> </div></form>
+
+    </div>
+</body>
+<script>
+
+</script>
+function DrawPic() { // Get the canvas element and its 2d context var Cnv = document.getElementById('myCanvas'); var Cntx = Cnv.getContext('2d'); // Create gradient var Grd = Cntx.createRadialGradient(100, 100, 20, 140, 100, 230); Grd.addColorStop(0, "red"); Grd.addColorStop(1, "black"); // Fill with gradient Cntx.fillStyle = Grd; Cntx.fillRect(0, 0, 300, 200); // Write some text for (i=1; i<10 ; i++) { Cntx.fillStyle = "white"; Cntx.font = "36px Verdana"; Cntx.globalAlpha = (i-1) / 9; Cntx.fillText("Codicode.com", i * 3 , i * 20); }}function UploadPic() { // Generate the image data var Pic = document.getElementById("myCanvas").toDataURL("image/png"); Pic = Pic.replace(/^data:image//(png|jpg);base64,/, "") // Sending the image data to Server $.ajax({ type: 'POST', url: 'Save_Picture.aspx/UploadPic', data: '{ "imageData" : "' + Pic + '" }', contentType: 'application/json; charset=utf-8', dataType: 'json', success: function (msg) { alert("Done, Picture Uploaded."); } });}
+</html>

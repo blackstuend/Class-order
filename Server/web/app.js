@@ -14,6 +14,8 @@ const account =require('./router/account')
 const fs = require('fs')
 const dir_check = require('./model/check_dir')
 mongoose.connect('mongodb://localhost/face');
+const server = require('http').createServer(app.callback())
+const io = module.exports = require('socket.io')(server)
 
 // start use
 app.use(serve(__dirname + '/public'));
@@ -49,7 +51,7 @@ app.use(account.routes())
     })
   }
 // listen
-app.listen(3000,function(){
+server.listen(3000,function(){
     console.log('listen on port')
     dir_check.mkdir_class()
     dir_check.mkdir_user()
